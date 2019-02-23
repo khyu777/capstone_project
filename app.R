@@ -60,7 +60,7 @@ body <- dashboardBody(
                selectInput(
                  inputId = "pollutant", label = "Choose a pollutant", choices = unique(tidy_world$pollutant)
                )),
-           box(width = NULL,
+           box(width = NULL, height = 500,
                title = "Trends", status = "primary", solidHeader = TRUE,
                textOutput("country"),
                textOutput("nodata"),
@@ -68,7 +68,7 @@ body <- dashboardBody(
                                     font-weight: bold;
                                     text-align: center}"),
                          tags$style("#nodata{text-align:center}")),
-               uiOutput("plt"))
+               uiOutput("data"))
            )
   )
 )
@@ -101,8 +101,8 @@ server <- function(input, output) {
     #create leaflet map
     leaflet(world_spdf) %>% 
       addProviderTiles("Esri.WorldGrayCanvas") %>% 
-      fitBounds(88, -12, 152, 32)
-      #setView(lat = 15, lng = 105, zoom = 4) 
+      #fitBounds(88, -12, 152, 32)
+      setView(lat = 10, lng = 110, zoom = 4) 
   })
   
   bins <- c(0,2,4,6,8,10)
@@ -167,16 +167,18 @@ server <- function(input, output) {
     rv$tb <- pm %>% 
       select(country, parameter, value, local) %>% 
       filter(country == name, parameter == input$pollutant)
+    
     output$plot <- renderPlot({
       rv$tb %>% ggplot() +
         geom_point(aes(local, value))
     })
+    
     output$country <- renderText({
-      name
+      paste(name, " (", input$pollutant, ")", sep = "")
     })
     
     if (name %in% rv$tb$country & input$pollutant %in% rv$tb$parameter){
-      output$plt <- renderUI({
+      output$data <- renderUI({
         plotOutput("plot")
       })
       output$nodata <- NULL
@@ -184,8 +186,18 @@ server <- function(input, output) {
       output$nodata <- renderText({
         "No data available"
       })
-      output$plt <- NULL
+      output$data <- NULL
     }
+    
+  })
+  
+  #clear plot if input changed
+  observeEvent(input$pollutant, {
+    change <- input$pollutant
+    output$plot <- NULL
+    output$data <- NULL
+    output$nodata <- NULL
+    output$country <- NULL
   })
 
     #create plot in popup if data available
