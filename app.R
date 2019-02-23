@@ -1,6 +1,6 @@
 #load libraries
 library(shiny)
-library(shinyBS)
+library(shinydashboard)
 library(tidyverse)
 library(leaflet)
 
@@ -42,17 +42,36 @@ world_spdf@data <- tmp
 tidy_world <- tmp %>%
   gather(pollutant, num_sources, PM2.5:CO)
 
-#shiny stuff
-ui <- fluidPage(
+#create header
+header <- dashboardHeader(
+  title = "South and Southeast Asia Air Pollution", titleWidth = "100vw"
+)
+
+#create body
+body <- dashboardBody(
   fluidRow(
-    column(2,
-           selectInput(inputId = "pollutant", label = "Choose a pollutant", choices = unique(tidy_world$pollutant))
+    column(width = 9,
+           box(width = NULL, solidHeader = TRUE,
+               leafletOutput("mymap", height = "85vh")
+               )
            ),
-    column(10,
-           leafletOutput("mymap", height = "85vh")
+    column(width = 3,
+           box(width = NULL,
+               selectInput(
+                 inputId = "pollutant", label = "Choose a pollutant", choices = unique(tidy_world$pollutant)
+               )),
+           box(width = NULL,
+               uiOutput("plt"))
            )
   )
-  #plotOutput("plot"),
+)
+
+#initiate UI
+ui <- dashboardPage(
+  skin = "blue",
+  header,
+  dashboardSidebar(disable = TRUE),
+  body
 )
 
 server <- function(input, output) {
@@ -75,7 +94,7 @@ server <- function(input, output) {
     #create leaflet map
     leaflet(world_spdf) %>% 
       addProviderTiles("Esri.WorldGrayCanvas") %>% 
-      setView(lat = 20, lng = 95, zoom = 4) 
+      setView(lat = 15, lng = 105, zoom = 4) 
   })
   
   bins <- c(0,2,4,6,8,10)
@@ -123,11 +142,12 @@ server <- function(input, output) {
         values = ~df_subset()$num_sources, 
         opacity = 0.7, 
         title = "Number of sources", 
-        position = "bottomright"
+        position = "bottomleft"
       )
   })
+  #create empty reactive value
+  rv <- reactiveValues(data = NULL)
   
-  rv <- reactiveValues()
   #output plot based on click
   observeEvent(input$mymap_shape_click, {
     event <- input$mymap_shape_click
@@ -135,36 +155,52 @@ server <- function(input, output) {
     #get country name based on ID
     name <- df_subset()$NAME[df_subset()$id == event$id]
     
-    #create plot if data available
-      rv$tb <- pm %>% 
-        select(country, parameter, value, local) %>% 
-        filter(country == name, parameter == input$pollutant)
-      if (name %in% rv$tb$country & input$pollutant %in% rv$tb$parameter) {
-        output$plot <- renderPlot({
-        rv$tb %>% ggplot() +
-          geom_point(aes(local, value))
+    #filter data based on country and pollutant
+    rv$tb <- pm %>% 
+      select(country, parameter, value, local) %>% 
+      filter(country == name, parameter == input$pollutant)
+    output$plot <- renderPlot({
+      rv$tb %>% ggplot() +
+        geom_point(aes(local, value))
+    })
+    
+    if (name %in% rv$tb$country & input$pollutant %in% rv$tb$parameter){
+      output$plt <- renderUI({
+        plotOutput("plot")
       })
-      showModal(
-        modalDialog(
-          title = paste(name, " ", input$pollutant),
-          plotOutput("plot"),
-          footer = actionButton("dismiss_modal",label = "Dismiss")
-        )
-      )
     } else {
-      showModal(
-        modalDialog(
-          "No data avilable"
-        )
-      )
+      output$plt <- renderUI({
+        "No data available"
+      })
     }
   })
-  
-  #reset plot if modal dismissed
-  observeEvent(input$dismiss_modal, {
-    output$plot <- NULL
-    removeModal()
-  })
-}
 
+    #create plot in popup if data available
+    # if (name %in% rv$tb$country & input$pollutant %in% rv$tb$parameter) {
+    #   output$plot <- renderPlot({
+    #   rv$tb %>% ggplot() +
+    #     geom_point(aes(local, value))
+    #   })
+    #   showModal(
+    #     modalDialog(
+    #       title = paste(name, " ", input$pollutant),
+    #       plotOutput("plot"),
+    #       footer = actionButton("dismiss_modal",label = "Close")
+    #     )
+    #   )
+    # } else {
+    #   showModal(
+    #     modalDialog(
+    #       "No data avilable"
+    #     )
+    #   )
+    # }
+#  })
+
+  # #reset plot if modal dismissed
+  # observeEvent(input$dismiss_modal, {
+  #   output$plot <- NULL
+  #   removeModal()
+  # })
+}
 shinyApp(ui = ui, server = server)
