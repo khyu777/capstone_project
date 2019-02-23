@@ -20,7 +20,8 @@ IN <- read_csv("data/india.csv") %>%
 TH <- read_csv("data/thailand.csv") %>% 
   mutate(country = recode(country, "TH" = "Thailand"))
 pm <- do.call(rbind, list(BD, IN, TH)) %>% 
-  select(country, local, parameter, value)
+  select(country, local, parameter, value) %>% 
+  mutate(parameter = recode(parameter, "pm25" = "PM2.5", "o3" = "Ozone", "no2" = "NOx", "so2" = "SO2", "co" = "CO"  ))
 
 #Download .shp file on the web:
 #download.file("http://thematicmapping.org/downloads/TM_WORLD_BORDERS_SIMPL-0.3.zip", destfile = "world_shape_file.zip")
@@ -130,12 +131,16 @@ server <- function(input, output) {
   #output plot based on click
   observeEvent(input$mymap_shape_click, {
     event <- input$mymap_shape_click
+    
+    #get country name based on ID
     name <- df_subset()$NAME[df_subset()$id == event$id]
-    if (name %in% pm$country){
+    
+    #create plot if data available
       rv$tb <- pm %>% 
-        filter(country == name) %>% 
-        select(country, parameter, value, local)
-      output$plot <- renderPlot({
+        select(country, parameter, value, local) %>% 
+        filter(country == name, parameter == input$pollutant)
+      if (name %in% rv$tb$country & input$pollutant %in% rv$tb$parameter) {
+        output$plot <- renderPlot({
         rv$tb %>% ggplot() +
           geom_point(aes(local, value))
       })
@@ -155,6 +160,7 @@ server <- function(input, output) {
     }
   })
   
+  #reset plot if modal dismissed
   observeEvent(input$dismiss_modal, {
     output$plot <- NULL
     removeModal()
