@@ -14,7 +14,7 @@ df_orig = read_csv("data/test.csv") %>%
 df <- aggregate(. ~ Country, df_orig, sum)
 
 BD <- read_csv("data/bangladesh.csv") %>% 
-  mutate(country = recode(country, "BD" = "Bangladesh"))
+  mutate(country = recode(country, "BD" = "Bangladesh"), value = replace(value, which(value<0), NA))
 IN <- read_csv("data/india.csv") %>% 
   mutate(country = recode(country, "IN" = "India"))
 TH <- read_csv("data/thailand.csv") %>% 
@@ -30,6 +30,9 @@ pm <- do.call(rbind, list(BD, IN, TH)) %>%
 #Read the shp file with the rgdal library in R
 library(rgdal)
 world_spdf=readOGR(dsn = getwd(), layer="TM_WORLD_BORDERS_SIMPL-0.3")
+
+#subset asia shp
+world_spdf <- subset(world_spdf, REGION == 142)
 
 #add in our data to shapefile
 tmp <- left_join(world_spdf@data, df, by = c("NAME" = "Country")) %>% 
@@ -50,17 +53,17 @@ header <- dashboardHeader(
 #create body
 body <- dashboardBody(
   fluidRow(
-    column(width = 9,
+    column(width = 8,
            box(width = NULL, solidHeader = TRUE,
                leafletOutput("mymap", height = "85vh")
                )
            ),
-    column(width = 3,
+    column(width = 4,
            box(width = NULL,
                selectInput(
                  inputId = "pollutant", label = "Choose a pollutant", choices = unique(tidy_world$pollutant)
                )),
-           box(width = NULL, height = 500,
+           box(width = NULL, height = 350,
                title = "Trends", status = "primary", solidHeader = TRUE,
                textOutput("country"),
                textOutput("nodata"),
@@ -102,7 +105,7 @@ server <- function(input, output) {
     leaflet(world_spdf) %>% 
       addProviderTiles("Esri.WorldGrayCanvas") %>% 
       #fitBounds(88, -12, 152, 32)
-      setView(lat = 10, lng = 110, zoom = 4) 
+      setView(lat = 13, lng = 101, zoom = 4) 
   })
   
   bins <- c(0,2,4,6,8,10)
@@ -170,7 +173,7 @@ server <- function(input, output) {
     
     output$plot <- renderPlot({
       rv$tb %>% ggplot() +
-        geom_point(aes(local, value))
+        geom_line(aes(local, value))
     })
     
     output$country <- renderText({
@@ -179,7 +182,7 @@ server <- function(input, output) {
     
     if (name %in% rv$tb$country & input$pollutant %in% rv$tb$parameter){
       output$data <- renderUI({
-        plotOutput("plot")
+        plotOutput("plot", height = 250)
       })
       output$nodata <- NULL
     } else {
