@@ -106,7 +106,7 @@ server <- function(input, output) {
   #subset data based on input pollutant
   df_subset <- reactive({
     a <- subset(tidy_world, pollutant == input$pollutant) %>% 
-      mutate(num_sources = cut(num_sources, breaks = c(0, 3, 7, 10), labels = c("Low", "Medium", "High")))
+      mutate(cat_sources = cut(num_sources, breaks = c(0, 3, 7, 10), labels = c("Low", "Medium", "High")))
   })
   
   #create leaflet map output
@@ -122,7 +122,7 @@ server <- function(input, output) {
   observe({
     #set bin and color category
     #pal <- colorBin("YlOrRd", domain = df_subset()$num_sources, bins = bins, na.color = "transparent")
-    pal <- colorFactor("YlOrRd", df_subset()$num_sources)
+    pal <- colorFactor("YlOrRd", df_subset()$cat_sources)
     
     #set text popup
     mytext = paste("Country: ", df_subset()$NAME,"<br/>", "# of Sources: ", df_subset()$num_sources) %>%
@@ -132,18 +132,18 @@ server <- function(input, output) {
     leafletProxy("mymap", data = world_spdf) %>%
                    clearShapes() %>% 
                    addPolygons(
-                     fillColor = ~pal(df_subset()$num_sources),
+                     fillColor = ~pal(df_subset()$cat_sources),
                      weight = 1.5,
                      opacity = 1,
                      color = "grey",
                      dashArray = "",
-                     fillOpacity = .7,
+                     fillOpacity = .8,
                      layerId = df_subset()$id,
                      highlight = highlightOptions(
                        weight = 5,
                        color = "black",
                        dashArray = "",
-                       fillOpacity = .7,
+                       fillOpacity = .8,
                        bringToFront = TRUE),
                      label = mytext,
                      labelOptions = labelOptions(
@@ -159,8 +159,8 @@ server <- function(input, output) {
     proxy %>% clearControls()
     proxy %>% 
       addLegend(
-        pal <- colorFactor("YlOrRd", df_subset()$num_sources),
-        values = ~df_subset()$num_sources, 
+        pal <- colorFactor("YlOrRd", df_subset()$cat_sources),
+        values = ~df_subset()$cat_sources, 
         opacity = 0.7, 
         title = "Number of sources", 
         position = "bottomleft"
