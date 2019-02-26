@@ -35,7 +35,7 @@ pm <- do.call(rbind, list(BD, IN, TH)) %>%
 
 #Read the shp file with the rgdal library in R
 library(rgdal)
-world_spdf <- readOGR(dsn = getwd(), layer = "TM_WORLD_BORDERS_SIMPL-0.3")
+world_spdf <- readOGR(dsn = paste(getwd(), "shapefile", sep = "/"), layer = "TM_WORLD_BORDERS_SIMPL-0.3")
 
 #subset asia shp
 world_spdf <- subset(world_spdf, REGION == 142 | NAME == "Taiwan")
@@ -117,9 +117,8 @@ server <- function(input, output) {
   output$mymap <- renderLeaflet({
     leaflet() %>% 
       addProviderTiles("Esri.WorldGrayCanvas") %>% 
-      fitBounds(min(df_with_data()$LON)+2, min(df_with_data()$LAT-10), max(df_with_data()$LON)+8, max(df_with_data()$LAT)+7)
-      # fitBounds(96,-11,113,34)
-      #setView(lat = 13, lng = 101, zoom = 4) 
+      # fitBounds(min(df_with_data()$LON)+2, min(df_with_data()$LAT-10), max(df_with_data()$LON)+8, max(df_with_data()$LAT)+7)
+      setView(lat = 13, lng = 101, zoom = 4) 
   })
   
   #set bins for color
