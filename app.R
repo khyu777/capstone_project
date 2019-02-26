@@ -108,6 +108,7 @@ server <- function(input, output) {
     a <- subset(tidy_world, pollutant == input$pollutant) %>% 
       mutate(cat_sources = cut(num_sources, breaks = c(0, 3, 7, 10), labels = c("Low", "Medium", "High")))
   })
+  
   df_with_data <- reactive({
     b <- subset(tidy_world, pollutant == input$pollutant) %>% 
       filter(!is.na(num_sources))
@@ -177,9 +178,12 @@ server <- function(input, output) {
   #output plot based on click
   observeEvent(input$mymap_shape_click, {
     event <- input$mymap_shape_click
-
+  
     name <- df_subset()$NAME[df_subset()$id == event$id] #get country name based on ID
-
+    print(df_subset())
+    leafletProxy("mymap") %>% 
+      setView(df_subset()$LON[df_subset()$NAME == name], df_subset()$LAT[df_subset()$NAME == name], zoom = 5)
+    
     #filter data based on country and pollutant
     rv$tb <- pm %>%
       select(country, parameter, value, local) %>%
@@ -220,9 +224,8 @@ server <- function(input, output) {
   #reset view button
   observeEvent(input$reset_button, {
     leafletProxy("mymap") %>%
-      fitBounds(min(df_with_data()$LON)+2, min(df_with_data()$LAT-10), max(df_with_data()$LON)+8, max(df_with_data()$LAT)+7)
-    print(df_with_data())
-      #setView(lat = 13, lng = 101, zoom = 4)
+      # fitBounds(min(df_with_data()$LON)+2, min(df_with_data()$LAT-10), max(df_with_data()$LON)+8, max(df_with_data()$LAT)+7)
+      setView(lat = 13, lng = 101, zoom = 4)
   })
 
     #create plot in popup if data available
