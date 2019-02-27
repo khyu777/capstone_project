@@ -79,8 +79,18 @@ body <- dashboardBody(
                                     font-weight: bold;
                                     text-align: center}"),
                          tags$style("#nodata{text-align:center}")),
-               uiOutput("data"))
-           ) #sidebar
+               uiOutput("data")
+               ),
+           box(width = NULL,
+               checkboxGroupInput("info", 
+                                  h4("Information"),
+                                  choices = list("Monitors" = 1,
+                                                 "Something" = 2,
+                                                 "Else" = 3,
+                                                 "Anything" = 4,
+                                                 "ELSE" = 5))
+              )
+           ) 
   )
 )
 
@@ -92,7 +102,7 @@ ui <- dashboardPage(
   body
 )
 
-server <- function(input, output) {
+server <- function(input, output, session) {
 #  df_subset = reactive({
 #    a <- subset(df, country == input$country)
 #  })
@@ -179,8 +189,18 @@ server <- function(input, output) {
   observeEvent(input$mymap_shape_click, {
     event <- input$mymap_shape_click
   
+    #check all the boxes when clicked
+    updateCheckboxGroupInput(session, "info", selected = c(1,3,5))
+    
+    #add markers when zoomed in
+    observeEvent(input$info, {
+      leafletProxy("mymap") %>%
+        clearMarkers() %>% 
+        addMarkers(df_subset()$LON[df_subset()$NAME == name], df_subset()$LAT[df_subset()$NAME == name])
+    })
+    
     name <- df_subset()$NAME[df_subset()$id == event$id] #get country name based on ID
-    print(df_subset())
+    
     leafletProxy("mymap") %>% 
       setView(df_subset()$LON[df_subset()$NAME == name], df_subset()$LAT[df_subset()$NAME == name], zoom = 5)
     
@@ -225,9 +245,10 @@ server <- function(input, output) {
   observeEvent(input$reset_button, {
     leafletProxy("mymap") %>%
       # fitBounds(min(df_with_data()$LON)+2, min(df_with_data()$LAT-10), max(df_with_data()$LON)+8, max(df_with_data()$LAT)+7)
-      setView(lat = 13, lng = 101, zoom = 4)
+      setView(lat = 13, lng = 101, zoom = 4) %>% 
+      clearMarkers()
   })
-
+  
     #create plot in popup if data available
     # if (name %in% rv$tb$country & input$pollutant %in% rv$tb$parameter) {
     #   output$plot <- renderPlot({
