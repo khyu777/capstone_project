@@ -57,8 +57,28 @@ header <- dashboardHeader(
   title = "South and Southeast Asia Air Pollution", titleWidth = "100vw"
 )
 
+tweaks <- 
+  list(tags$head(tags$style(HTML("
+                                 .multicol { 
+                                 height: 100px;
+                                 -webkit-column-count: 2; /* Chrome, Safari, Opera */ 
+                                 -moz-column-count: 2;    /* Firefox */ 
+                                 column-count: 2; 
+                                 -moz-column-fill: auto;
+                                 -column-fill: auto;
+                                 }
+                                 .checkbox{
+                                 margin-top: 0px !important;
+                                 padding-left: 20px;
+                                 -webkit-margin-after: 0px !important; 
+                                 }
+                                 
+                                 ")) 
+  ))
+
 #create dashboard body
 body <- dashboardBody(
+  tweaks,
   fluidRow(
     column(width = 8,
            box(width = NULL, 
@@ -81,14 +101,18 @@ body <- dashboardBody(
                          tags$style("#nodata{text-align:center}")),
                uiOutput("data")
                ),
-           box(width = NULL,
-               checkboxGroupInput("info", 
-                                  h4("Information"),
-                                  choices = list("Monitors" = 1,
-                                                 "Something" = 2,
-                                                 "Else" = 3,
-                                                 "Anything" = 4,
-                                                 "ELSE" = 5))
+           box(width = NULL,  height = 150, solidHeader = TRUE,
+               title = "Information",
+               tags$div(align = "left",
+                        class = "multicol",
+                        checkboxGroupInput("info",
+                                           label = NULL,
+                                           choices = list("Monitors" = 1,
+                                                          "Something" = 2,
+                                                          "Else" = 3,
+                                                          "Anything" = 4,
+                                                          "ELSE" = 5))
+                        )
               )
            ) 
   )
