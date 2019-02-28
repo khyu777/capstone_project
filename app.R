@@ -12,7 +12,7 @@ library(leaflet)
 #set working directory to file source directory
 #setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-source("data.R")
+source("data.R", local = TRUE)
 
 #create dashboard header
 header <- dashboardHeader(
@@ -69,7 +69,7 @@ body <- dashboardBody(
                         class = "multicol",
                         checkboxGroupInput("info",
                                            label = NULL,
-                                           choices = list("Monitors" = 1,
+                                           choices = list("Monitors" = "monitors",
                                                           "Something" = 2,
                                                           "Else" = 3,
                                                           "Anything" = 4,
@@ -235,32 +235,14 @@ server <- function(input, output, session) {
       clearMarkers()
   })
   
-    #create plot in popup if data available
-    # if (name %in% rv$tb$country & input$pollutant %in% rv$tb$parameter) {
-    #   output$plot <- renderPlot({
-    #   rv$tb %>% ggplot() +
-    #     geom_point(aes(local, value))
-    #   })
-    #   showModal(
-    #     modalDialog(
-    #       title = paste(name, " ", input$pollutant),
-    #       plotOutput("plot"),
-    #       footer = actionButton("dismiss_modal",label = "Close")
-    #     )
-    #   )
-    # } else {
-    #   showModal(
-    #     modalDialog(
-    #       "No data avilable"
-    #     )
-    #   )
-    # }
-#  })
-
-  # #reset plot if modal dismissed
-  # observeEvent(input$dismiss_modal, {
-  #   output$plot <- NULL
-  #   removeModal()
-  # })
+  #add/remove components w/ checkbox
+  observe({
+    proxy <- leafletProxy("mymap")
+    proxy %>% clearMarkers()
+    if ("monitors" %in% input$info) {
+      proxy %>% 
+        addMarkers(monitors$lng, monitors$lat)
+    }
+  })
 }
 shinyApp(ui = ui, server = server)

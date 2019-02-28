@@ -1,3 +1,5 @@
+library(tidyverse)
+
 #read in availability data and obtain aggregate
 df_orig <- read_csv("data/test.csv") %>% 
   select(Country:CO) %>% 
@@ -37,3 +39,8 @@ world_spdf@data <- tmp
 #put dataframe in a tidy format
 tidy_world <- tmp %>%
   gather(pollutant, num_sources, PM2.5:CO)
+
+#load monitor data
+monitors <- read_csv("data/monitors.csv") %>% 
+  janitor::clean_names() %>% 
+  rename(freq = frequency_of_reporting, lng = lon)
