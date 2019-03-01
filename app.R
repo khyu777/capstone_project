@@ -70,7 +70,7 @@ body <- dashboardBody(
                         checkboxGroupInput("info",
                                            label = NULL,
                                            choices = list("Monitors" = "monitors",
-                                                          "Something" = 2,
+                                                          "Something" = "something",
                                                           "Else" = 3,
                                                           "Anything" = 4,
                                                           "ELSE" = 5))
@@ -175,16 +175,6 @@ server <- function(input, output, session) {
   observeEvent(input$mymap_shape_click, {
     event <- input$mymap_shape_click
   
-    #check all the boxes when clicked
-    updateCheckboxGroupInput(session, "info", selected = c(1,3,5))
-    
-    #add markers when zoomed in
-    observeEvent(input$info, {
-      leafletProxy("mymap") %>%
-        clearMarkers() %>% 
-        addMarkers(df_subset()$LON[df_subset()$NAME == name], df_subset()$LAT[df_subset()$NAME == name])
-    })
-    
     name <- df_subset()$NAME[df_subset()$id == event$id] #get country name based on ID
     
     leafletProxy("mymap") %>% 
@@ -231,17 +221,32 @@ server <- function(input, output, session) {
   observeEvent(input$reset_button, {
     leafletProxy("mymap") %>%
       # fitBounds(min(df_with_data()$LON)+2, min(df_with_data()$LAT-10), max(df_with_data()$LON)+8, max(df_with_data()$LAT)+7)
-      setView(lat = 13, lng = 101, zoom = 4) %>% 
-      clearMarkers()
+      setView(lat = 13, lng = 101, zoom = 4) 
   })
   
   #add/remove components w/ checkbox
   observe({
     proxy <- leafletProxy("mymap")
     proxy %>% clearMarkers()
-    if ("monitors" %in% input$info) {
+    
+    checkbox <- input$info
+    
+    m <- "monitors" %in% checkbox
+    s <- "something" %in% checkbox
+    print(m&s)
+    print(checkbox)
+    if (m) {
       proxy %>% 
         addMarkers(monitors$lng, monitors$lat)
+    } else if (s){
+      proxy %>% 
+        addCircleMarkers(90,40)
+    }
+    if (m&s){
+      proxy %>% 
+        clearMarkers() %>% 
+        addMarkers(monitors$lng, monitors$lat) %>% 
+        addCircleMarkers(90, 40)
     }
   })
 }
