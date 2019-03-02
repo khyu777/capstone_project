@@ -41,6 +41,11 @@ tidy_world <- tmp %>%
   gather(pollutant, num_sources, PM2.5:CO)
 
 #load monitor data
-monitors <- read_csv("data/monitors.csv") %>% 
+measurements <- read_csv("data/WHO_AirQuality_Database_2018.csv") %>% 
   janitor::clean_names() %>% 
-  rename(freq = frequency_of_reporting, lng = lon)
+  select(country:longitude, region, -contains("type"), -reference) %>% 
+  rename(lat = latitude, lng = longitude) %>% 
+  filter(region == "Wpr_LM" | region == "Sear", country != "China", year==2015)
+
+monitors <- measurements %>% 
+  distinct(country, city, lat, lng)

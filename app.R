@@ -70,7 +70,7 @@ body <- dashboardBody(
                         checkboxGroupInput("info",
                                            label = NULL,
                                            choices = list("Monitors" = "monitors",
-                                                          "Something" = "something",
+                                                          "PM2.5" = "pm25",
                                                           "Else" = 3,
                                                           "Anything" = 4,
                                                           "ELSE" = 5))
@@ -129,7 +129,7 @@ server <- function(input, output, session) {
     #set text popup
     mytext = paste("Country: ", df_subset()$NAME,"<br/>", "# of Sources: ", df_subset()$num_sources) %>%
       lapply(htmltools::HTML)
-    
+     
     #add data to map
     leafletProxy("mymap") %>%
                    clearShapes() %>%
@@ -142,11 +142,10 @@ server <- function(input, output, session) {
                      fillOpacity = .6,
                      layerId = df_subset()$id,
                      highlight = highlightOptions(
-                       weight = 5,
+                       weight = 3,
                        color = "black",
                        dashArray = "",
-                       fillOpacity = .6,
-                       bringToFront = TRUE),
+                       fillOpacity = .6),
                      label = mytext,
                      labelOptions = labelOptions(
                        style = list("font-weight" = "normal", padding = "3px 8px"),
@@ -232,21 +231,21 @@ server <- function(input, output, session) {
     checkbox <- input$info
     
     m <- "monitors" %in% checkbox
-    s <- "something" %in% checkbox
-    print(m&s)
-    print(checkbox)
+    s <- "pm25" %in% checkbox
+    
     if (m) {
       proxy %>% 
-        addMarkers(monitors$lng, monitors$lat)
+        addMarkers(monitors$lng, monitors$lat, popup = as.character(measurements$city))
     } else if (s){
       proxy %>% 
-        addCircleMarkers(90,40)
+        clearMarkers() %>% 
+        addCircleMarkers(measurements$lng, measurements$lat, radius = measurements$pm25 / 10, popup = paste("PM2.5: ", as.character(measurements$pm25)))
     }
     if (m&s){
       proxy %>% 
         clearMarkers() %>% 
-        addMarkers(monitors$lng, monitors$lat) %>% 
-        addCircleMarkers(90, 40)
+        addMarkers(monitors$lng, monitors$lat, popup = as.character(measurements$city)) %>% 
+        addCircleMarkers(measurements$lng, measurements$lat, radius = measurements$pm25 / 10, popup = as.character(measurements$pm25))
     }
   })
 }
