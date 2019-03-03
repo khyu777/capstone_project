@@ -243,15 +243,18 @@ server <- function(input, output, session) {
     m <- "monitors" %in% checkbox
     s <- "pm25" %in% checkbox
  
-    palette <- rev(brewer.pal(5, "RdYlGn"))
+    #set pm25 color
     pal <- colorBin(c("#3c9b01", "#c60000"), ms()$pm25, bins = c(0, 10, 15, 25, 35, 50, Inf))
     
-    if (m) {
+    #add monitor markers
+    addmonitor <- function(){
       proxy %>%
         addMarkers(~lng, ~lat, popup = ~city)
-    } else if (s){
-      proxy %>% 
-        clearMarkers() %>% 
+    }
+    
+    #add pm25 data
+    addpm25 <- function(x) {
+      leafletProxy("mymap", data = x) %>% 
         addCircleMarkers(~lng, ~lat,
                          radius = ~pm25 / 10,
                          color = ~pal(pm25),
@@ -271,28 +274,15 @@ server <- function(input, output, session) {
           labels = c("0", "1", "2", "3", "4", "5"),
           layerId = "pm25")
     }
+    
+    if (m) {
+      addmonitor()
+    } else if (s){
+      addpm25(ms())
+    }
     if (m&s){
-      proxy %>% 
-        clearMarkers() %>% 
-        addMarkers(~lng, ~lat, popup = ms()$city) %>% 
-        addCircleMarkers(~lng, ~lat,
-                         radius = ~pm25 / 10,
-                         color = ~pal(pm25),
-                         fillOpacity = 0.5,
-                         opacity = 0.7,
-                         popup = ~paste(sep = "<br/>",
-                                        paste("<strong>Country: </strong>", country),
-                                        paste("<strong>City: </strong>", city),
-                                        paste("<strong>PM2.5: </strong>", round(pm25), " ug/m<sup>3</sup>"))) %>% 
-        removeControl("pm25") %>% 
-        addLegend(
-          title = paste("PM2.5 (ug/m<sup>3</sup>)"),
-          pal = pal,
-          values = ~pm25,
-          opacity = 0.7,
-          position = "bottomright",
-          labels = c("0", "1", "2", "3", "4", "5"),
-          layerId = "pm25")
+      addmonitor()
+      addpm25(ms())
     }
   })
 }
