@@ -43,9 +43,9 @@ tidy_world <- tmp %>%
 #load monitor data
 measurements <- read_csv("data/WHO_AirQuality_Database_2018.csv") %>% 
   janitor::clean_names() %>% 
-  select(country:longitude, region, -contains("type"), -reference) %>% 
-  rename(lat = latitude, lng = longitude) %>% 
-  filter(region == "Wpr_LM" | region == "Sear", country != "China", year==2015)
+  select(country:longitude, region, -contains("type"), -reference, conc_pm25:color_pm10) %>% 
+  rename(lat = latitude, lng = longitude) %>%
+  filter(region == "Wpr_LM" | region == "Sear", country != "China")
 
 monitors <- measurements %>% 
   distinct(country, city, lat, lng)

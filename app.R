@@ -8,6 +8,7 @@ library(shiny)
 library(shinydashboard)
 library(tidyverse)
 library(leaflet)
+library(RColorBrewer)
 
 #set working directory to file source directory
 #setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -52,6 +53,10 @@ body <- dashboardBody(
            box(width = NULL,
                selectInput(
                  inputId = "pollutant", label = "Choose a pollutant", choices = unique(tidy_world$pollutant)
+               )),
+           box(width = NULL,
+               selectInput(
+                 inputId = "year", label = "Choose a year", choices = unique(sort(measurements$year))
                )),
            box(width = NULL, height = 350,
                title = "Trends", status = "primary", 
@@ -223,29 +228,54 @@ server <- function(input, output, session) {
       setView(lat = 13, lng = 101, zoom = 4) 
   })
   
+  #create reactive measurments dataset
+  ms <- reactive({
+    c <- subset(measurements, year == input$year) 
+  })
+  
   #add/remove components w/ checkbox
   observe({
-    proxy <- leafletProxy("mymap")
-    proxy %>% clearMarkers()
+    proxy <- leafletProxy("mymap", data = ms())
+    proxy %>% clearMarkers() %>% removeControl("pm25") 
     
     checkbox <- input$info
     
     m <- "monitors" %in% checkbox
     s <- "pm25" %in% checkbox
+ 
+    palette <- rev(brewer.pal(5, "RdYlGn"))
+    pal <- colorBin(c("#3c9b01", "#c60000"), ms()$pm25, bins = c(0, 10, 15, 25, 35, 50, Inf))
     
     if (m) {
-      proxy %>% 
-        addMarkers(monitors$lng, monitors$lat, popup = as.character(measurements$city))
+      proxy %>%
+        addMarkers(~lng, ~lat, popup = ~city)
     } else if (s){
       proxy %>% 
         clearMarkers() %>% 
-        addCircleMarkers(measurements$lng, measurements$lat, radius = measurements$pm25 / 10, popup = paste("PM2.5: ", as.character(measurements$pm25)))
+        addCircleMarkers(~lng, ~lat,
+                         radius = ~pm25 / 10,
+                         color = ~pal(pm25),
+                         fillOpacity = 0.5,
+                         opacity = 0.7,
+                         popup = ~paste(sep = "<br/>",
+                                        paste("<strong>Country: </strong>", country),
+                                        paste("<strong>City: </strong>", city),
+                                        paste("<strong>PM2.5: </strong>", round(pm25), " ug/m<sup>3</sup>"))) %>% 
+        removeControl("pm25") %>% 
+        addLegend(
+          title = paste("PM2.5 (ug/m<sup>3</sup>)"),
+          pal = pal,
+          values = ~pm25,
+          opacity = 0.7,
+          position = "bottomright",
+          labels = c("0", "1", "2", "3", "4", "5"),
+          layerId = "pm25")
     }
     if (m&s){
       proxy %>% 
         clearMarkers() %>% 
-        addMarkers(monitors$lng, monitors$lat, popup = as.character(measurements$city)) %>% 
-        addCircleMarkers(measurements$lng, measurements$lat, radius = measurements$pm25 / 10, popup = as.character(measurements$pm25))
+        addMarkers(~lng, ~lat, popup = ms()$city) %>% 
+        addCircleMarkers(~lng, ~lat, radius = ms()$pm25 / 10, popup = ms()$pm25)
     }
   })
 }
