@@ -1,5 +1,5 @@
 #check for missing packages and install
-list.of.packages <- c("shiny", "shinydashboard", "tidyverse", "leaflet", "rgdal")
+list.of.packages <- c("shiny", "shinydashboard", "tidyverse", "leaflet", "rgdal", "janitor")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
 if (length(new.packages)) install.packages(new.packages)
 
@@ -75,10 +75,8 @@ body <- dashboardBody(
                         checkboxGroupInput("info",
                                            label = NULL,
                                            choices = list("Monitors" = "monitors",
-                                                          "Pollutant Level" = "pol_lvl",
-                                                          "Else" = 3,
-                                                          "Anything" = 4,
-                                                          "ELSE" = 5))
+                                                          "Pollutant Level" = "pol_lvl")
+                                           )
                         )
               )
            ) 
@@ -247,7 +245,7 @@ server <- function(input, output, session) {
     s <- "pol_lvl" %in% checkbox
  
     #set pm25 color
-    pal <- colorBin(c("#3c9b01", "#c60000"), ms()$level, bins = c(0, 10, 15, 25, 35, 50, Inf))
+    pal <- colorBin(c("#3c9b01", "#c60000"), ms()$level, bins = c(0, 10, 15, 25, 35, 50, ceiling(max(ms()$level))))
     
     #add monitor markers
     addmonitor <- function(){
@@ -281,7 +279,6 @@ server <- function(input, output, session) {
     if (m) {
       addmonitor()
     } else if (s){
-      print(ms())
       addlevel(ms())
     }
     if (m&s){
