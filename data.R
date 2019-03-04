@@ -43,9 +43,14 @@ tidy_world <- tmp %>%
 #load monitor data
 measurements <- read_csv("data/WHO_AirQuality_Database_2018.csv") %>% 
   janitor::clean_names() %>% 
-  select(country:longitude, region, -contains("type"), -reference, conc_pm25:color_pm10) %>% 
+  select(country:longitude, region, -contains("type"), -reference, -(conc_pm25:color_pm10)) %>% 
   rename(lat = latitude, lng = longitude) %>%
   filter(region == "Wpr_LM" | region == "Sear", country != "China")
 
+measurements_tidy <- measurements %>% 
+  gather(pollutant, level, pm25, pm10) %>% 
+  mutate(pollutant = recode(pollutant, "pm25" = "PM2.5", "o3" = "Ozone", "no2" = "NOx", "so2" = "SO2", "co" = "CO"))
+
 monitors <- measurements %>% 
   distinct(country, city, lat, lng)
+

@@ -75,7 +75,7 @@ body <- dashboardBody(
                         checkboxGroupInput("info",
                                            label = NULL,
                                            choices = list("Monitors" = "monitors",
-                                                          "PM2.5" = "pm25",
+                                                          "Pollutant Level" = "pol_lvl",
                                                           "Else" = 3,
                                                           "Anything" = 4,
                                                           "ELSE" = 5))
@@ -219,6 +219,8 @@ server <- function(input, output, session) {
     output$data <- NULL
     output$nodata <- NULL
     output$country <- NULL
+    leafletProxy("mymap") %>% 
+      clearMarkers()
   })
   
   #reset view button
@@ -230,21 +232,22 @@ server <- function(input, output, session) {
   
   #create reactive measurments dataset
   ms <- reactive({
-    c <- subset(measurements, year == input$year) 
+    c <- measurements_tidy %>% 
+      filter(year == input$year, pollutant == input$pollutant)
   })
   
   #add/remove components w/ checkbox
   observe({
     proxy <- leafletProxy("mymap", data = ms())
-    proxy %>% clearMarkers() %>% removeControl("pm25") 
+    proxy %>% clearMarkers() %>% removeControl("level") 
     
     checkbox <- input$info
     
     m <- "monitors" %in% checkbox
-    s <- "pm25" %in% checkbox
+    s <- "pol_lvl" %in% checkbox
  
     #set pm25 color
-    pal <- colorBin(c("#3c9b01", "#c60000"), ms()$pm25, bins = c(0, 10, 15, 25, 35, 50, Inf))
+    pal <- colorBin(c("#3c9b01", "#c60000"), ms()$level, bins = c(0, 10, 15, 25, 35, 50, Inf))
     
     #add monitor markers
     addmonitor <- function(){
@@ -253,36 +256,37 @@ server <- function(input, output, session) {
     }
     
     #add pm25 data
-    addpm25 <- function(x) {
+    addlevel <- function(x) {
       leafletProxy("mymap", data = x) %>% 
         addCircleMarkers(~lng, ~lat,
-                         radius = ~pm25 / 10,
-                         color = ~pal(pm25),
+                         radius = ~level / 10,
+                         color = ~pal(level),
                          fillOpacity = 0.5,
                          opacity = 0.7,
                          popup = ~paste(sep = "<br/>",
                                         paste("<strong>Country: </strong>", country),
                                         paste("<strong>City: </strong>", city),
-                                        paste("<strong>PM2.5: </strong>", round(pm25), " ug/m<sup>3</sup>"))) %>% 
-        removeControl("pm25") %>% 
+                                        paste("<strong>PM2.5: </strong>", round(level), " ug/m<sup>3</sup>"))) %>% 
+        removeControl("level") %>% 
         addLegend(
-          title = paste("PM2.5 (ug/m<sup>3</sup>)"),
+          title = paste(input$pollutant, "(ug/m<sup>3</sup>)"),
           pal = pal,
-          values = ~pm25,
+          values = ~level,
           opacity = 0.7,
           position = "bottomright",
           labels = c("0", "1", "2", "3", "4", "5"),
-          layerId = "pm25")
+          layerId = "level")
     }
     
     if (m) {
       addmonitor()
     } else if (s){
-      addpm25(ms())
+      print(ms())
+      addlevel(ms())
     }
     if (m&s){
       addmonitor()
-      addpm25(ms())
+      addlevel(ms())
     }
   })
 }
