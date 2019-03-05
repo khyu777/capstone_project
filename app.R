@@ -116,9 +116,9 @@ server <- function(input, output, session) {
   #create leaflet map output
   output$mymap <- renderLeaflet({
     leaflet() %>% 
-      addProviderTiles("Esri.WorldGrayCanvas") %>% 
+      addProviderTiles("Esri.WorldGrayCanvas", options = providerTileOptions(minZoom = 4)) %>% 
       # fitBounds(min(df_with_data()$LON)+2, min(df_with_data()$LAT-10), max(df_with_data()$LON)+8, max(df_with_data()$LAT)+7)
-      setView(lat = 13, lng = 101, zoom = 4) 
+      setView(lat = 13, lng = 101, zoom = 4)
   })
   
   #set bins for color
@@ -182,9 +182,12 @@ server <- function(input, output, session) {
     event <- input$mymap_shape_click
   
     name <- df_subset()$NAME[df_subset()$id == event$id] #get country name based on ID
+    normal <- df_subset() %>% mutate(AREA = 5.8 * (1-((AREA-min(AREA))/(max(AREA)-min(AREA)))))
+    country_sp <- normal %>% 
+      filter(NAME == name)
     
     leafletProxy("mymap") %>% 
-      setView(df_subset()$LON[df_subset()$NAME == name], df_subset()$LAT[df_subset()$NAME == name], zoom = 5)
+      setView(country_sp$LON, country_sp$LAT, zoom = country_sp$AREA)
     
     #filter data based on country and pollutant
     rv$tb <- pm %>%

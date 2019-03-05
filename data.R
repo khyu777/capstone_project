@@ -30,7 +30,7 @@ world_spdf <- subset(world_spdf, REGION == 142 | NAME == "Taiwan")
 
 #add in our data to shapefile
 tmp <- left_join(world_spdf@data, df, by = c("NAME" = "Country")) %>% 
-  select(NAME, LON:CO) 
+  select(NAME, AREA, LON:CO) 
 tmp <- tmp %>% 
   mutate(id = 1:nrow(tmp))   
 #mutate_at(c("PM2.5", "Household Air Pollution", "Ozone", "NOx", "SO2", "CO", "VOCs"), funs(case_when(. > 7 ~ "High", . > 3 & . <= 7 ~ "Med", . <= 3 ~ "Low")))
