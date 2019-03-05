@@ -1,7 +1,7 @@
 #check for missing packages and install
-list.of.packages <- c("shiny", "shinydashboard", "tidyverse", "leaflet", "rgdal")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
-if (length(new.packages)) install.packages(new.packages)
+# list.of.packages <- c("shiny", "shinydashboard", "tidyverse", "leaflet", "rgdal")
+# new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
+# if (length(new.packages)) install.packages(new.packages)
 
 #load libraries
 library(shiny)
