@@ -1,5 +1,5 @@
 #check for missing packages and install
-list.of.packages <- c("shiny", "shinydashboard", "tidyverse", "leaflet", "rgdal", "janitor")
+list.of.packages <- c("shiny", "shinydashboard", "tidyverse", "leaflet", "rgdal")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
 if (length(new.packages)) install.packages(new.packages)
 
@@ -135,26 +135,30 @@ server <- function(input, output, session) {
      
     #add data to map
     leafletProxy("mymap") %>%
-                   clearShapes() %>%
-                   addPolygons(data = world_spdf,
-                     fillColor = ~pal(df_subset()$cat_sources),
-                     weight = 1.5,
-                     opacity = 1,
-                     color = "grey",
-                     dashArray = "",
-                     fillOpacity = .6,
-                     layerId = df_subset()$id,
-                     highlight = highlightOptions(
-                       weight = 3,
-                       color = "black",
-                       dashArray = "",
-                       fillOpacity = .6),
-                     label = mytext,
-                     labelOptions = labelOptions(
-                       style = list("font-weight" = "normal", padding = "3px 8px"),
-                       textsize = "15px",
-                       direction = "auto")
-                     )
+      clearShapes() %>%
+      addMapPane("polygons", zIndex = 410) %>% 
+      addMapPane("pollution", zIndex = 420) %>% 
+      addPolygons(data = world_spdf,
+                  fillColor = ~pal(df_subset()$cat_sources),
+                  weight = 1.5,
+                  opacity = 1,
+                  color = "grey",
+                  dashArray = "",
+                  fillOpacity = .6,
+                  layerId = df_subset()$id,
+                  highlight = highlightOptions(
+                    weight = 3,
+                    color = "black",
+                    dashArray = "",
+                    fill = NULL,
+                    bringToFront = TRUE),
+                  label = mytext,
+                  labelOptions = labelOptions(
+                    style = list("font-weight" = "normal", padding = "3px 8px"),
+                    textsize = "15px",
+                    direction = "auto"),
+                  options = pathOptions(pane = "polygons")
+                  )  
     })
   
   #create legend separately
@@ -264,7 +268,8 @@ server <- function(input, output, session) {
                          popup = ~paste(sep = "<br/>",
                                         paste("<strong>Country: </strong>", country),
                                         paste("<strong>City: </strong>", city),
-                                        paste("<strong>PM2.5: </strong>", round(level), " ug/m<sup>3</sup>"))) %>% 
+                                        paste("<strong>PM2.5: </strong>", round(level), " ug/m<sup>3</sup>")),
+                         options = pathOptions(pane = "pollution")) %>% 
         removeControl("level") %>% 
         addLegend(
           title = paste(input$pollutant, "(ug/m<sup>3</sup>)"),
