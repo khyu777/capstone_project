@@ -118,10 +118,10 @@ server <- function(input, output, session) {
   observe({
     #set bin and color category
     #pal <- colorBin("YlOrRd", domain = df_subset()$num_sources, bins = bins, na.color = "transparent")
-    pal <- colorFactor("YlOrRd", df_subset()$cat_pct_urban)
+    pal <- colorFactor("YlOrRd", ctrprof$cat_pct_urban)
     
     #set text popup
-    mytext = paste("Country: ", df_subset()$NAME,"<br/>", "% Urban Population: ", df_subset()$percent_urban) %>%
+    mytext = paste("Country: ", ctrprof$NAME,"<br/>", "% Urban Population: ", ctrprof$percent_urban) %>%
       lapply(htmltools::HTML)
      
     #add data to map
@@ -130,7 +130,7 @@ server <- function(input, output, session) {
       addMapPane("polygons", zIndex = 410) %>% 
       addMapPane("pollution", zIndex = 420) %>% 
       addPolygons(data = world_spdf,
-                  fillColor = ~pal(df_subset()$cat_pct_urban),
+                  fillColor = ~pal(ctrprof$cat_pct_urban),
                   weight = 1.5,
                   opacity = 1,
                   color = "grey",
@@ -154,12 +154,12 @@ server <- function(input, output, session) {
   
   #create legend separately
   observe({
-    proxy <- leafletProxy("mymap", data = df_subset())
+    proxy <- leafletProxy("mymap", data = ctrprof)
     proxy %>% clearControls()
     proxy %>%
       addLegend(
-        pal <- colorFactor("YlOrRd", df_subset()$cat_pct_urban),
-        values = ~df_subset()$cat_pct_urban,
+        pal <- colorFactor("YlOrRd", ctrprof$cat_pct_urban),
+        values = ~ctrprof$cat_pct_urban,
         opacity = 0.7,
         title = "% Urban Population",
         position = "bottomleft"
@@ -185,7 +185,7 @@ server <- function(input, output, session) {
 
     output$plot <- renderPlot({
       rv$tb %>% ggplot() +
-        geom_point(aes(year, concentration))
+        geom_bar(aes(year, concentration), stat = "identity", width = 0.5)
     })
 
     output$country <- renderText({

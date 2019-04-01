@@ -9,7 +9,7 @@ df <- aggregate(. ~ Country, df_orig, sum)
 
 
 #country profile data
-ctprof <- read_csv("data/country_profile.csv") %>% 
+ctrprof <- read_csv("data/country_profile.csv") %>% 
   select(country, percent_urban) %>% 
   mutate(cat_pct_urban = cut(percent_urban, breaks = c(0, 25, 50, 75, 100), labels = c("Low", "Medium", "High", "Very High"))) %>% 
   filter(!is.na(percent_urban))
@@ -46,14 +46,16 @@ world_spdf <- readOGR(dsn = paste(getwd(), "shapefile", sep = "/"), layer = "TM_
 world_spdf <- subset(world_spdf, REGION == 142 | NAME == "Taiwan")
 
 #add in our data to shapefile
-#tmp <- left_join(world_spdf@data, df, by = c("NAME" = "Country")) %>% 
-#  select(NAME, AREA, LON:CO) 
-tmp <- left_join(tmp, ctprof, by = c("NAME" = "country"))
-tmp$NAME[tmp$NAME == "Viet Nam"] <- "Vietnam"
+tmp <- left_join(world_spdf@data, df, by = c("NAME" = "Country")) %>% 
+  select(NAME, AREA, LON:CO) 
 tmp <- tmp %>% 
   mutate(id = 1:nrow(tmp))
+ctrprof <- left_join(world_spdf@data, ctrprof, by = c("NAME" = "country"))
+ctrprof$NAME[ctrprof$NAME == "Viet Nam"] <- "Vietnam"
+ctrprof <- ctrprof %>% 
+  mutate(id = 1:nrow(ctrprof))
 
-world_spdf@data <- tmp
+world_spdf@data <- ctrprof
 
 #put dataframe in a tidy format
 tidy_world <- tmp %>%
