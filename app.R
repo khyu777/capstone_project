@@ -1,7 +1,7 @@
 #check for missing packages and install
-# list.of.packages <- c("shiny", "shinydashboard", "tidyverse", "leaflet", "rgdal")
-# new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
-# if (length(new.packages)) install.packages(new.packages)
+list.of.packages <- c("shiny", "shinydashboard", "tidyverse", "leaflet", "rgdal", "httr", "jsonlite")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
+if (length(new.packages)) install.packages(new.packages)
 
 #load libraries
 library(shiny)
@@ -92,15 +92,6 @@ ui <- dashboardPage(
 )
 
 server <- function(input, output, session) {
-#  df_subset = reactive({
-#    a <- subset(df, country == input$country)
-#  })
-#  
-#  output$plot <- renderPlot({
-#    ggplot(df_subset(), aes(local, value)) +
-#      geom_point()
-#    
-#  })
   
   #subset data based on input pollutant
   df_subset <- reactive({
@@ -127,10 +118,10 @@ server <- function(input, output, session) {
   observe({
     #set bin and color category
     #pal <- colorBin("YlOrRd", domain = df_subset()$num_sources, bins = bins, na.color = "transparent")
-    pal <- colorFactor("YlOrRd", df_subset()$cat_sources)
+    pal <- colorFactor("YlOrRd", df_subset()$cat_pct_urban)
     
     #set text popup
-    mytext = paste("Country: ", df_subset()$NAME,"<br/>", "# of Sources: ", df_subset()$num_sources) %>%
+    mytext = paste("Country: ", df_subset()$NAME,"<br/>", "% Urban Population: ", df_subset()$percent_urban) %>%
       lapply(htmltools::HTML)
      
     #add data to map
@@ -139,7 +130,7 @@ server <- function(input, output, session) {
       addMapPane("polygons", zIndex = 410) %>% 
       addMapPane("pollution", zIndex = 420) %>% 
       addPolygons(data = world_spdf,
-                  fillColor = ~pal(df_subset()$cat_sources),
+                  fillColor = ~pal(df_subset()$cat_pct_urban),
                   weight = 1.5,
                   opacity = 1,
                   color = "grey",
@@ -167,10 +158,10 @@ server <- function(input, output, session) {
     proxy %>% clearControls()
     proxy %>%
       addLegend(
-        pal <- colorFactor("YlOrRd", df_subset()$cat_sources),
-        values = ~df_subset()$cat_sources,
+        pal <- colorFactor("YlOrRd", df_subset()$cat_pct_urban),
+        values = ~df_subset()$cat_pct_urban,
         opacity = 0.7,
-        title = "Number of sources",
+        title = "% Urban Population",
         position = "bottomleft"
       )
   })
@@ -180,7 +171,7 @@ server <- function(input, output, session) {
   #output plot based on click
   observeEvent(input$mymap_shape_click, {
     event <- input$mymap_shape_click
-  
+    
     name <- df_subset()$NAME[df_subset()$id == event$id] #get country name based on ID
     normal <- df_subset() %>% mutate(AREA = 5.8 * (1-((AREA-min(AREA))/(max(AREA)-min(AREA)))))
     country_sp <- normal %>% 

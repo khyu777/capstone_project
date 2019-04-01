@@ -1,0 +1,335 @@
+Country,City,Year,Station Type,PM10,PM10 Type,PM2.5,PM2.5 Type,Reference,LAT,LNG,OpenAQ
+Bangladesh,Barisal,2013,1 Urban,112,Measured,80,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",22.709999,90.360001,No
+Bangladesh,Barisal,2014,1 Urban,128,Measured,83,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",22.709999,90.360001,No
+Bangladesh,Barisal,2015,1 Urban,113,Measured,80,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",22.709999,90.360001,No
+Bangladesh,Chittagong,2013,2 Urban,113.45,Measured,66.05,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",22.3400005,91.8050005,No
+Bangladesh,Chittagong,2014,2 Urban,129,Measured,72.9,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",22.3400005,91.8050005,No
+Bangladesh,Chittagong,2015,2 Urban,91.05,Measured,65.6,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",22.3400005,91.8050005,No
+Bangladesh,Dhaka,2013,3 Urban,142.3333333,Measured,85.83333333,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",23.765655,90.379074,Yes
+Bangladesh,Dhaka,2014,2 Urban,149.5,Measured,84.7,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",23.7700005,90.375,Yes
+Bangladesh,Dhaka,2015,3 Urban,146.5,Measured,81.56666667,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",23.765655,90.379074,Yes
+Bangladesh,Dhaka,2016,1 Urban,104.3107492,Converted,56.8448564,Measured,AirNow DOS,23.796969,90.422207,Yes
+Bangladesh,Gazipur,2013,1 Urban,130,Measured,84.5,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",23.99,90.419998,No
+Bangladesh,Gazipur,2014,1 Urban,154,Measured,89,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",23.99,90.419998,No
+Bangladesh,Gazipur,2015,1 Urban,143,Measured,81.2,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",23.99,90.419998,No
+Bangladesh,Khulna,2013,1 Urban,132,Measured,76,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",22.83975,89.541771,No
+Bangladesh,Khulna,2015,1 Urban,93.5,Measured,83.6,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",22.83975,89.541771,No
+Bangladesh,Narayangonj,2013,1 Urban,174,Measured,89.1,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",23.629999,90.510002,No
+Bangladesh,Narayangonj,2014,1 Urban,191,Measured,107,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",23.629999,90.510002,No
+Bangladesh,Narayangonj,2015,1 Urban,205,Measured,94.2,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",23.629999,90.510002,No
+Bangladesh,Rajshahi,2013,1 Urban,126,Measured,69.4,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",24.379999,88.610001,No
+Bangladesh,Rajshahi,2014,1 Urban,176,Measured,41.7,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",24.379999,88.610001,No
+Bangladesh,Rajshahi,2015,1 Urban,86.06186115,Converted,46.9,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",24.379999,88.610001,No
+Bangladesh,Sylhet,2013,1 Urban,105,Measured,59.1,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",24.889999,91.870003,No
+Bangladesh,Sylhet,2014,1 Urban,112,Measured,61.9,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",24.889999,91.870003,No
+Bangladesh,Sylhet,2015,1 Urban,111,Measured,61,Measured,"Ministry of Environment and Forest, Clean air and sustainable Environment",24.889999,91.870003,No
+India,Agra,2010,4 N.A.,188.25,Measured,102.2247537,Converted,AAQM Data of pollutants at 04 CPCB Monitoring Stations in AGRA,27.193836,78.03331843,Yes
+India,Agra,2011,5 N.A.,164.2876923,Measured,89.21258368,Converted,"AAQM Data of pollutants at 04 CPCB Monitoring Stations in AGRA, CPCB",27.21451324,78.0412103,Yes
+India,Agra,2012,4 N.A.,194.75,Measured,105.7544264,Converted,AAQM Data of pollutants at 04 CPCB Monitoring Stations in AGRA,27.193836,78.03331843,Yes
+India,Agra,2013,5 N.A.,176.4292929,Measured,95.80579554,Converted,"AAQM Data of pollutants at 04 CPCB Monitoring Stations in AGRA, CPCB",27.21451324,78.0412103,Yes
+India,Agra,2014,5 N.A.,176.0666667,Measured,95.60887984,Converted,"AAQM Data of pollutants at 04 CPCB Monitoring Stations in AGRA, CPCB",27.21451324,78.0412103,Yes
+India,Agra,2015,6 N.A.,179.2590278,Measured,114.82,Measured,"AAQM Data of pollutants at 04 CPCB Monitoring Stations in AGRA, CPCB",27.21187076,78.03533867,Yes
+India,Agra,2016,5 N.A.,194.5,Measured,131.39,Measured,"AAQM Data of pollutants at 04 CPCB Monitoring Stations in AGRA, CPCB",27.19480047,78.02785085,Yes
+India,Ahmedabad,2015,1 N.A.,120.4176783,Converted,65.39,Measured,CPCB,22.99616667,72.59958333,Yes
+India,Aizawl,2012,"5 stations, NA",53.6,Measured,28.69716337,Converted,Open Government Data (OGD) Plateform India,23.72710609,92.71763611,No
+India,Aizwal,2015,2 N.A.,45.42,Measured,24.49,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",23.73328333,92.66534444,No
+India,Aizwal,2016,2 N.A.,44.28,Measured,27.08,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",23.73328333,92.66534444,No
+India,Akola,2012,"3 stations, NA",139,Measured,74.41988261,Converted,Open Government Data (OGD) Plateform India,20.70593452,77.02190399,No
+India,Alappuzha,2012,1 N.A.,45.66666667,Measured,24.79821382,Converted,CPCB,10.63361111,76.57444444,No
+India,Allahabad,2012,"2 stations, NA",317,Measured,169.7201639,Converted,Open Government Data (OGD) Plateform India,25.43580055,81.84631348,No
+India,Alwar,2012,"3 stations, NA",151.6666667,Measured,81.20155057,Converted,Open Government Data (OGD) Plateform India,27.56093216,76.62501526,No
+India,Amravati,2012,"3 stations, NA",100.3333333,Measured,53.71794884,Converted,Open Government Data (OGD) Plateform India,31.6339798,74.87226105,No
+India,Amritsar,2012,"2 stations, NA",202,Measured,108.1497575,Converted,Open Government Data (OGD) Plateform India,31.6339798,74.87226105,No
+India,Angul,2012,"2 stations, NA",106,Measured,56.75185293,Converted,Open Government Data (OGD) Plateform India,20.85000038,85.09999847,No
+India,Anklesvar,2012,"2 stations, NA",99.5,Measured,53.27178647,Converted,Open Government Data (OGD) Plateform India,21.62642479,73.01519775,Yes
+India,Aurangabad,2012,"3 stations, NA",79.66666667,Measured,42.65312217,Converted,Open Government Data (OGD) Plateform India,19.87616539,75.34331512,Yes
+India,Baddi,2012,"3 stations, NA",99,Measured,53.00408905,Converted,Open Government Data (OGD) Plateform India,30.95782661,76.79135895,No
+India,Balasore,2012,"3 stations, NA",81.66666667,Measured,43.72391185,Converted,Open Government Data (OGD) Plateform India,21.49497795,86.94265747,No
+India,Bangalore,2012,"2 , 2  (Commercial), 3 Industrial, 1 Residential",106.7375,Measured,57.96129958,Converted,Karnataka State Pollution Control Board,13.00285613,77.58251575,Yes
+India,Bangalore,2013,"3 , 3  (Commercial), 4 Industrial, 4 Residential, 1 Rural",100.1866667,Measured,54.40402296,Converted,Karnataka State Pollution Control Board,12.98967033,77.6091654,Yes
+India,Bangalore,2014,"3 , 3  (Commercial), 4 Industrial, 4 Residential, 1 Rural",119.66,Measured,64.97856056,Converted,Karnataka State Pollution Control Board,12.99304413,77.60262813,Yes
+India,Bangalore,2015,"3 , 3  (Commercial), 4 Industrial, 5 N.A., 4 Residential, 1 Rural",111.1058824,Measured,37.268,Measured,"CPCB, Karnataka State Pollution Control Board, MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",12.98325754,77.59957096,Yes
+India,Bangalore,2016,"5 , 4  (Commercial), 4 Industrial, 5 N.A., 2 Residential, 1 Rural",96.47,Measured,46.16666667,Measured,"CPCB, Karnataka State Pollution Control Board, MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",12.98047433,77.60363044,Yes
+India,Berhampur,2012,"1 station, NA",80,Measured,42.83158711,Converted,Open Government Data (OGD) Plateform India,19.31496239,84.79409027,No
+India,Bhilai,2012,"3 stations, NA",103,Measured,55.14566841,Converted,Open Government Data (OGD) Plateform India,21.19384766,81.35094452,No
+India,Bhopal,2012,"3 stations, NA",173,Measured,92.62330713,Converted,Open Government Data (OGD) Plateform India,20.29605865,85.82453918,No
+India,Bhubneshwar,2012,"5 stations, NA",80.8,Measured,43.25990299,Converted,Open Government Data (OGD) Plateform India,20.29605865,85.82453918,No
+India,Bongaigaon,2012,"2 stations, NA",45.5,Measured,24.36046517,Converted,Open Government Data (OGD) Plateform India,26.47421646,90.56445313,No
+India,Chandigarh,2012,"5 stations, NA",110.2,Measured,59.00051125,Converted,Open Government Data (OGD) Plateform India,30.73331451,76.77941895,No
+India,Chandrapur,2015,3 N.A.,86.47697369,Measured,43.39,Measured,CPCB,20.17950509,79.36855039,Yes
+India,Chandrapur,2016,3 N.A.,109.03,Measured,59.73,Measured,CPCB,19.96598657,79.27909483,Yes
+India,Chennai,2015,"5 N.A., 1 Urban",70.08,Measured,50.6133127,Measured,"AirNow DOS, CPCB, MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",13.04788893,80.20482196,Yes
+India,Chennai,2016,"5 N.A., 1 Urban",79.67,Measured,48.86299959,Measured,"AirNow DOS, CPCB, MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",13.04788893,80.20482196,Yes
+India,Chitoor,2012,"1 station, NA",40,Measured,21.41579356,Converted,Open Government Data (OGD) Plateform India,13.21717644,79.10032654,No
+India,Coimbatore,2012,"3 stations, NA",68,Measured,36.40684905,Converted,Open Government Data (OGD) Plateform India,11.01684475,76.95583344,No
+India,Cuttack,2012,"2 stations, NA",67.5,Measured,36.13915163,Converted,Open Government Data (OGD) Plateform India,20.4625206,85.88298798,No
+India,Dehradun,2012,"3 stations, NA",187.6666667,Measured,100.4757648,Converted,Open Government Data (OGD) Plateform India,30.3164959,78.03218842,No
+India,Delhi,2016,"9 N.A., 1 Urban",292.31,Measured,143.1136501,Measured,"AirNow DOS, CPCB, System Of Air Quality And Weather Forecasting And Research (Safar-India)",28.64266069,77.19881077,Yes
+India,Delhi,2010,NA,261,Measured,140.94,Converted,CPCB,28.6,77.2,Yes
+India,Delhi,2011,NA,222,Measured,119.88,Converted,CPCB,28.6,77.2,Yes
+India,Delhi,2013,NA,221,Measured,119.34,Converted,CPCB,28.6,77.2,Yes
+India,Delhi,2014,NA,215,Measured,116.1,Converted,CPCB,28.6,77.2,Yes
+India,Delhi,2015,NA,228,Measured,123.12,Converted,CPCB,28.6,77.2,Yes
+India,Devanagere,2012,"3 stations, NA",74.66666667,Measured,39.97614797,Converted,Open Government Data (OGD) Plateform India,13.01938438,77.67810059,No
+India,Dewas,2012,"3 stations, NA",91.66666667,Measured,49.07786024,Converted,Open Government Data (OGD) Plateform India,22.96122742,76.05141449,Yes
+India,Dhanbad,2012,"3 stations, NA",178,Measured,95.30028133,Converted,Open Government Data (OGD) Plateform India,23.79565239,86.4303894,Yes
+India,Dibrugarh,2012,"1 station, NA",56,Measured,29.98211098,Converted,Open Government Data (OGD) Plateform India,27.47283363,94.91196442,No
+India,Dimapur,2012,"2 stations, NA",89.5,Measured,47.91783808,Converted,Open Government Data (OGD) Plateform India,25.90626717,93.72759247,No
+India,Durgapur,2012,"1 station, NA",108,Measured,57.8226426,Converted,Open Government Data (OGD) Plateform India,23.52044487,87.31192017,Yes
+India,Faridabad,2015,2 N.A.,117.26,Measured,77.195,Measured,CPCB,28.40954741,77.3149207,Yes
+India,Faridabad,2016,1 N.A.,315.8777237,Converted,171.53,Measured,CPCB,28.41012222,77.313775,Yes
+India,Firozabad,2012,"3 stations, NA",211.6666667,Measured,113.3252409,Converted,Open Government Data (OGD) Plateform India,27.15910149,78.39575958,No
+India,Gauhati,2015,2 N.A.,75.95,Measured,33.5,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",26.153075,91.663725,No
+India,Gauhati,2016,2 N.A.,81.33,Measured,39.96,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",26.153075,91.663725,No
+India,Gaya,2016,1 N.A.,274.6458562,Converted,149.14,Measured,CPCB,24.7489694,84.9438395,No
+India,Gobindgarh,2012,"3 stations, NA",201,Measured,107.6143626,Converted,Open Government Data (OGD) Plateform India,30.67671967,76.29392242,No
+India,Golaghat,2012,"1 station, NA",55,Measured,29.44671614,Converted,Open Government Data (OGD) Plateform India,26.50896072,93.96954346,No
+India,Guntur,2012,"1 station, NA",75,Measured,40.15461292,Converted,Open Government Data (OGD) Plateform India,16.30665207,80.4365387,No
+India,Gurgaon,2016,2 N.A.,124.34,Measured,119.63,Measured,CPCB,29.57805585,76.9397403,Yes
+India,Guwahati,2010,3 N.A.,108.5724485,Measured,58.9577254,Converted,CPCB,26.28055556,92.26527778,No
+India,Guwahati,2012,4 N.A.,99.84161623,Measured,54.21665139,Converted,CPCB,26.26361111,92.28722222,No
+India,Guwahati,2013,4 N.A.,152.7132073,Measured,82.92733067,Converted,CPCB,26.26361111,92.28722222,No
+India,Guwahati,2014,5 N.A.,97.09405309,Measured,52.72465158,Converted,CPCB,26.26288889,92.25144444,No
+India,Guwahati,2015,5 N.A.,98.92114062,Measured,53.71680868,Converted,CPCB,26.26288889,92.25144444,No
+India,Gwalior,2012,"2 stations, NA",329,Measured,176.144902,Converted,Open Government Data (OGD) Plateform India,26.21828651,78.18283081,No
+India,Hassan,2012,"1 station, NA",36,Measured,19.2742142,Converted,Open Government Data (OGD) Plateform India,13.006814,76.09954834,No
+India,Howrah,2012,"1 station, NA",186,Measured,99.58344004,Converted,Open Government Data (OGD) Plateform India,22.59576988,88.26364136,Yes
+India,Hyderabad,2014,1 N.A.,93.66666667,Measured,43.96892655,Measured,CPCB,17.89027778,78.31361111,Yes
+India,Hyderabad,2015,"2 N.A., 1 Urban",80.59,Measured,38.58057221,Measured,"AirNow DOS, MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",17.49937059,78.425074,Yes
+India,Hyderabad,2016,"3 N.A., 1 Urban",84.03,Measured,43.99845699,Measured,"AirNow DOS, CPCB, MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",17.46195144,78.43166475,Yes
+India,Indore,2012,"3 stations, NA",142.6666667,Measured,76.38299702,Converted,Open Government Data (OGD) Plateform India,26.91241646,75.78728485,No
+India,Jabalpur,2015,2 N.A.,87.87,Measured,41.4,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",23.16326944,79.96868889,No
+India,Jabalpur,2016,2 N.A.,78.81,Measured,38.03,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",23.16326944,79.96868889,No
+India,Jaipur,2016,1 N.A.,192.5872579,Converted,104.58,Measured,CPCB,26.9738778,75.77387778,Yes
+India,Jalandhar,2012,"3 stations, NA",140.3333333,Measured,75.1337424,Converted,Open Government Data (OGD) Plateform India,31.32601547,75.5761795,Yes
+India,Jalgaon,2012,1 N.A.,133.6930693,Measured,72.59889018,Converted,CPCB,21.02138889,75.94055556,No
+India,Jalgaon,2013,1 N.A.,114.8153846,Measured,62.34780562,Converted,CPCB,21.02138889,75.94055556,No
+India,Jammu,2012,"3 stations, NA",119.3333333,Measured,63.89045078,Converted,Open Government Data (OGD) Plateform India,32.72660065,74.85702515,No
+India,Jamnagar,2012,"1 station, NA",101,Measured,54.07487873,Converted,Open Government Data (OGD) Plateform India,22.47070122,70.05773163,No
+India,Jhansi,2012,"2 stations, NA",109.5,Measured,58.62573486,Converted,Open Government Data (OGD) Plateform India,25.44412041,78.56760406,No
+India,Jodhpur,2016,1 N.A.,180.1569271,Converted,97.83,Measured,CPCB,26.2920639,73.03791111,Yes
+India,Kakinada,2012,"1 station, NA",58,Measured,31.05290066,Converted,Open Government Data (OGD) Plateform India,16.94518089,82.23864746,No
+India,Kanpur,2011,1 N.A.,138.7300885,Measured,75.33412549,Converted,CPCB,26.82583333,80.47972222,Yes
+India,Kanpur,2015,1 N.A.,198.7379697,Converted,107.92,Measured,CPCB,26.4703088,80.3251749,Yes
+India,Kanpur,2016,1 N.A.,318.5479429,Converted,172.98,Measured,CPCB,26.4703088,80.3251749,Yes
+India,Khanna,2012,"2 stations, NA",212.5,Measured,113.7714033,Converted,Open Government Data (OGD) Plateform India,30.70439911,76.22309875,Yes
+India,Khurja,2012,"2 stations, NA",168,Measured,89.94633294,Converted,Open Government Data (OGD) Plateform India,28.25288391,77.85142517,No
+India,Kochi,2012,"7 stations, NA",70.28571429,Measured,37.63060868,Converted,Open Government Data (OGD) Plateform India,9.931233406,76.26730347,No
+India,Kohima,2012,"2 stations, NA",81.5,Measured,43.63467937,Converted,Open Government Data (OGD) Plateform India,25.67034912,94.10951233,No
+India,Kolhapur,2012,"3 stations, NA",110,Measured,58.89343228,Converted,Open Government Data (OGD) Plateform India,16.69130707,74.24486542,No
+India,Kolkata,2015,1 Urban,95.27105508,Converted,51.73471521,Measured,AirNow DOS,22.551462,88.350983,Yes
+India,Kolkata,2016,1 Urban,136.1013575,Converted,73.9066547,Measured,AirNow DOS,22.551462,88.350983,Yes
+India,Kollam,2012,1 N.A.,55.79237288,Measured,30.29674143,Converted,CPCB,9.550555556,77.02805556,No
+India,Korba,2012,"3 stations, NA",80.66666667,Measured,43.18851701,Converted,Open Government Data (OGD) Plateform India,22.34797859,82.70040131,No
+India,Kota,2012,"3 stations, NA",156.3333333,Measured,83.70005982,Converted,Open Government Data (OGD) Plateform India,25.21381569,75.86475372,Yes
+India,Kothagudem,2012,"1 station, NA",63,Measured,33.72987485,Converted,Open Government Data (OGD) Plateform India,17.55600357,80.61439514,No
+India,Kottayam,2012,"2 stations, NA",56,Measured,29.98211098,Converted,Open Government Data (OGD) Plateform India,9.591567039,76.52215576,No
+India,Kozhikode,2012,"2 stations, NA",55.5,Measured,29.71441356,Converted,Open Government Data (OGD) Plateform India,11.25875282,75.78041077,No
+India,Kurnool,2012,"1 station, NA",74,Measured,39.61921808,Converted,Open Government Data (OGD) Plateform India,15.82812595,78.03727722,No
+India,Lucknow,2015,3 N.A.,198.2162027,Converted,107.6366667,Measured,CPCB,26.84417037,80.94226944,Yes
+India,Lucknow,2016,3 N.A.,254.8923726,Converted,138.4133333,Measured,CPCB,26.84417037,80.94226944,Yes
+India,Ludhiana,2012,"4 stations, NA",227.75,Measured,121.9361746,Converted,Open Government Data (OGD) Plateform India,30.90096474,75.85727692,Yes
+India,Madurai,2012,"3 stations, NA",48.33333333,Measured,25.87741721,Converted,Open Government Data (OGD) Plateform India,9.925201416,78.11977386,No
+India,Margherita,2012,"1 station, NA",54,Measured,28.9113213,Converted,Open Government Data (OGD) Plateform India,27.2827282,95.67275238,No
+India,Meerut,2012,"2 stations, NA",129,Measured,69.06593422,Converted,Open Government Data (OGD) Plateform India,28.98446274,77.70641327,No
+India,Mumbai,2015,"13 N.A., 1 Urban",105.1818182,Measured,66.19342366,Measured,"AirNow DOS, CPCB, MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",19.06117279,72.91509643,Yes
+India,Mumbai,2016,"13 N.A., 1 Urban",103.9090909,Measured,63.86953687,Measured,"AirNow DOS, CPCB, MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",19.06117279,72.91509643,Yes
+India,Muzaffarpur,2015,1 N.A.,214.39,Measured,196.69,Measured,CPCB,26.1237072,85.3803361,Yes
+India,Muzaffarpur,2016,1 N.A.,220.9468273,Converted,119.98,Measured,CPCB,26.0762,85.4115,Yes
+India,Nagaon,2012,"1 station, NA",79,Measured,42.29619228,Converted,Open Government Data (OGD) Plateform India,23.45000076,75.41670227,No
+India,Nagda,2012,"3 stations, NA",103,Measured,55.14566841,Converted,Open Government Data (OGD) Plateform India,23.45000076,75.41670227,No
+India,Nagpur,2012,1 N.A.,57.27319588,Measured,31.10086768,Converted,CPCB,21.24944444,79.15611111,Yes
+India,Nagpur,2013,1 N.A.,60.91808874,Measured,33.08014139,Converted,CPCB,21.24944444,79.15611111,Yes
+India,Nagpur,2014,1 N.A.,62.67892977,Measured,34.03632487,Converted,CPCB,21.24944444,79.15611111,Yes
+India,Nagpur,2015,1 N.A.,55.14802632,Measured,29.94684412,Converted,CPCB,21.24944444,79.15611111,Yes
+India,Nagpur,2016,1 N.A.,85.87,Measured,84.39,Measured,CPCB,21.1528765,79.0729793,Yes
+India,Nalbari,2012,"1 station, NA",82,Measured,43.90237679,Converted,Open Government Data (OGD) Plateform India,26.44290733,91.44104004,No
+India,Nalgonda,2012,1 N.A.,78.87850467,Measured,42.83312462,Converted,CPCB,17.10444444,79.43888889,No
+India,Nanded,2012,"3 stations, NA",52.66666667,Measured,28.19746152,Converted,Open Government Data (OGD) Plateform India,19.13825226,77.32095337,No
+India,Nashik,2012,1 N.A.,94.39871383,Measured,51.26101072,Converted,CPCB,20.67083333,74.32722222,Yes
+India,Nashik,2013,1 N.A.,85.69155844,Measured,46.53279391,Converted,CPCB,20.67083333,74.32722222,Yes
+India,Nashik,2014,1 N.A.,73.68910256,Measured,40.01514134,Converted,CPCB,20.67083333,74.32722222,Yes
+India,Nashik,2015,1 N.A.,77.03521127,Measured,41.83216731,Converted,CPCB,20.67083333,74.32722222,Yes
+India,Navi Mumbai,2014,1 N.A.,97.34,Measured,39.72,Measured,CPCB,19.1568793,72.9972813,Yes
+India,Navi Mumbai,2015,1 N.A.,112.97,Measured,36.07,Measured,CPCB,19.1568793,72.9972813,Yes
+India,Navi Mumbai,2016,1 N.A.,66.82,Measured,41.27,Measured,CPCB,19.1568793,72.9972813,Yes
+India,Naya Nangal,2012,"2 stations, NA",88.5,Measured,47.38244325,Converted,Open Government Data (OGD) Plateform India,31.38664055,76.35504913,No
+India,Nellore,2012,"1 station, NA",62,Measured,33.19448001,Converted,Open Government Data (OGD) Plateform India,14.4425993,79.98645782,No
+India,Noida,2012,"2 stations, NA",136,Measured,72.81369809,Converted,Open Government Data (OGD) Plateform India,28.53551674,77.39102936,Yes
+India,Panaji,2012,"1 station, NA",67,Measured,35.87145421,Converted,Open Government Data (OGD) Plateform India,15.49300003,73.81800079,No
+India,Panchkula,2015,1 N.A.,59.23,Measured,53.93,Measured,CPCB,30.6942091,76.860565,Yes
+India,Panchkula,2016,1 N.A.,100.8237939,Converted,54.75,Measured,CPCB,30.7057778,76.85318056,Yes
+India,Parwanoo,2012,"2 stations, NA",79.5,Measured,42.56388969,Converted,Open Government Data (OGD) Plateform India,30.83806038,76.95850372,No
+India,Pathanamthitta,2012,"1 station, NA",23,Measured,12.3140813,Converted,Open Government Data (OGD) Plateform India,9.26475811,76.78704071,No
+India,Patiala,2015,2 N.A.,159.14,Measured,81.51,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",30.35271389,76.3717625,Yes
+India,Patiala,2016,2 N.A.,183.72,Measured,101.15,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",30.35271389,76.3717625,Yes
+India,Patna,2016,1 N.A.,265.6776028,Converted,144.27,Measured,CPCB,25.3636,85.0755,Yes
+India,Puducherry,2012,"3 stations, NA",41.66666667,Measured,22.30811829,Converted,Open Government Data (OGD) Plateform India,11.91385937,79.81447601,No
+India,Pune,2012,1 N.A.,88.63636364,Measured,48.13190141,Converted,CPCB,18.86777778,74.43527778,Yes
+India,Pune,2013,1 N.A.,85.95081967,Measured,46.67357965,Converted,CPCB,18.86777778,74.43527778,Yes
+India,Pune,2014,1 N.A.,92.80887372,Measured,50.39768528,Converted,CPCB,18.86777778,74.43527778,Yes
+India,Pune,2015,13 N.A.,104.7163942,Measured,50.11083333,Measured,"CPCB, MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",18.57619857,73.89866207,Yes
+India,Pune,2016,13 N.A.,88.965,Measured,50.42230769,Measured,"CPCB, MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",18.55636951,73.84594839,Yes
+India,Raebareli,2012,"3 stations, NA",163,Measured,87.26935875,Converted,Open Government Data (OGD) Plateform India,26.2345295,81.24086761,No
+India,Raipur,2012,"3 stations, NA",268.3333333,Measured,143.6642818,Converted,Open Government Data (OGD) Plateform India,21.25138474,81.62963867,No
+India,Rajkot,2012,"2 stations, NA",98.5,Measured,52.73639163,Converted,Open Government Data (OGD) Plateform India,22.30389595,70.80216217,No
+India,Ramagundam,2012,"1 station, NA",82,Measured,43.90237679,Converted,Open Government Data (OGD) Plateform India,18.75955009,79.48163605,No
+India,Raniganj,2012,"1 station, NA",126,Measured,67.4597497,Converted,Open Government Data (OGD) Plateform India,23.62905693,87.09239197,No
+India,Rayagada,2012,"2 stations, NA",54,Measured,28.9113213,Converted,Open Government Data (OGD) Plateform India,19.16670036,83.41670227,No
+India,Rishikesh,2012,"1 station, NA",109,Measured,58.35803744,Converted,Open Government Data (OGD) Plateform India,30.08692741,78.26760864,No
+India,Rourkela,2012,"2 stations, NA",98,Measured,52.46869421,Converted,Open Government Data (OGD) Plateform India,22.26042366,84.85358429,No
+India,Salem,2012,"1 station, NA",60,Measured,32.12369034,Converted,Open Government Data (OGD) Plateform India,11.66432476,78.14601135,No
+India,Sambalpur,2012,"1 station, NA",53,Measured,28.37592646,Converted,Open Government Data (OGD) Plateform India,21.46622276,83.97516632,No
+India,Sangli,2012,"3 stations, NA",80,Measured,42.83158711,Converted,Open Government Data (OGD) Plateform India,16.85437965,74.56417084,No
+India,Shillong,2012,"2 stations, NA",65,Measured,34.80066453,Converted,Open Government Data (OGD) Plateform India,31.10460472,77.17342377,No
+India,Shimla,2012,"2 stations, NA",57.5,Measured,30.78520324,Converted,Open Government Data (OGD) Plateform India,31.10460472,77.17342377,No
+India,Sibsagar,2012,"2 stations, NA",109,Measured,58.35803744,Converted,Open Government Data (OGD) Plateform India,26.98329926,94.63330078,No
+India,Silchar,2012,"2 stations, NA",90.5,Measured,48.45323292,Converted,Open Government Data (OGD) Plateform India,24.81871414,92.79138184,No
+India,Singrauli,2012,"3 stations, NA",64,Measured,34.26526969,Converted,Open Government Data (OGD) Plateform India,24.20000076,82.66999817,No
+India,Solapur,2016,1 N.A.,70.97258481,Converted,38.54,Measured,CPCB,17.6599188,75.9063906,Yes
+India,Sunder Nagar,2011,1 N.A.,55.87550201,Measured,30.34188276,Converted,CPCB,31.89222222,77.48972222,No
+India,Surat,2012,"3 stations, NA",97,Measured,51.93329938,Converted,Open Government Data (OGD) Plateform India,21.19499969,72.81944275,No
+India,Tezpur,2015,2 N.A.,56.32,Measured,37.16,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",26.70093611,92.83028333,No
+India,Tezpur,2016,2 N.A.,52.42,Measured,32.56,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",26.70093611,92.83028333,No
+India,Thane,2012,"3 stations, NA",72.66666667,Measured,38.9053583,Converted,Open Government Data (OGD) Plateform India,19.21833038,72.97808838,Yes
+India,Thiruvananthapuram,2012,"4 stations, NA",54.5,Measured,29.17901872,Converted,Open Government Data (OGD) Plateform India,8.524139404,76.93663788,Yes
+India,Tinsukia,2012,"2 stations, NA",56.5,Measured,30.2498084,Converted,Open Government Data (OGD) Plateform India,27.48946381,95.36014557,No
+India,Tirumala,2014,1 N.A.,61.97196262,Measured,33.65242291,Converted,CPCB,14.13944444,79.58944444,No
+India,Tirupati,2012,1 N.A.,68.27619048,Measured,37.07578621,Converted,CPCB,14.05777778,79.70888889,Yes
+India,Trichy,2012,"5 stations, NA",75.4,Measured,40.36877086,Converted,Open Government Data (OGD) Plateform India,10.79048347,78.70467377,No
+India,Trivendrum,2015,2 N.A.,39.76,Measured,24.26,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",8.522859722,76.90972222,No
+India,Trivendrum,2016,2 N.A.,47.76,Measured,34.93,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",8.522859722,76.90972222,No
+India,Tura,2012,"1 station, NA",52,Measured,27.84053162,Converted,Open Government Data (OGD) Plateform India,25.51407051,90.20321655,No
+India,Udaipur,2015,2 N.A.,117.49,Measured,46.58,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",24.59403333,73.73121389,Yes
+India,Udaipur,2016,2 N.A.,98.17,Measured,40.63,Measured,"MAPAN-SAFAR, System Of Air Quality And Weather Forecasting And Research (Safar-India)",24.59403333,73.73121389,Yes
+India,Ujjain,2012,"3 stations, NA",80.33333333,Measured,43.01005206,Converted,Open Government Data (OGD) Plateform India,23.17930031,75.78491211,Yes
+India,Vadodara,2012,"3 stations, NA",102.3333333,Measured,54.78873852,Converted,Open Government Data (OGD) Plateform India,22.3073101,73.18109894,No
+India,Vapi,2012,"2 stations, NA",100,Measured,53.53948389,Converted,Open Government Data (OGD) Plateform India,20.3712368,72.90634155,No
+India,Varanasi,2013,1 N.A.,416.3,Measured,216.62,Measured,CPCB,25.3476423,82.9809505,Yes
+India,Varanasi,2014,1 N.A.,232.54,Measured,180.31,Measured,CPCB,25.3476423,82.9809505,Yes
+India,Varanasi,2015,2 N.A.,222.47,Measured,115.345,Measured,CPCB,25.34909893,82.97964192,Yes
+India,Varanasi,2016,2 N.A.,260.06,Measured,146.29,Measured,CPCB,25.34909893,82.97964192,Yes
+India,Vishakhapatnam,2012,NA,64.875,Measured,34.73374018,Converted,Open Government Data (OGD) Plateform India,17.68681526,83.21848297,Yes
+India,Vizag,2015,1 N.A.,70.2,Measured,33.28,Measured,System Of Air Quality And Weather Forecasting And Research (Safar-India),17.7,83.3,No
+India,Vizag,2016,1 N.A.,76.14,Measured,34.43,Measured,System Of Air Quality And Weather Forecasting And Research (Safar-India),17.7,83.3,No
+India,Warangal,2012,"1 station, NA",49,Measured,26.23434711,Converted,Open Government Data (OGD) Plateform India,18.00005531,79.58816528,No
+Indonesia,Bandung,2014,-,59.33215833,Converted,33,Measured,http://spartan-network.org/,-6.914700031,107.6098022,Yes
+Indonesia,Jakarta,2016,1 Urban,82.32662211,Converted,44.86445593,Measured,AirNow DOS,-6.214833,106.819879,Yes
+Malaysia,Bayan Lepas,2014,"1 station, NA",33.85,Measured,17.83262737,Converted,"Minsitry of Science, Technology and Innovation (MOSTI)",5.321008205,100.2901382,No
+Malaysia,Kuantan,2014,"1 station, NA",27.25,Measured,14.35566014,Converted,"Minsitry of Science, Technology and Innovation (MOSTI)",1.530976057,110.344223,No
+Malaysia,Kuching,2014,"1 station, NA",26.12222222,Measured,13.7615319,Converted,"Minsitry of Science, Technology and Innovation (MOSTI)",1.530976057,110.344223,No
+Malaysia,Petaling Jaya,2014,"1 station, NA",47.21,Measured,24.87085194,Converted,"Minsitry of Science, Technology and Innovation (MOSTI)",3.107094049,101.6082535,No
+Malaysia,Senai,2014,"1 station, NA",30.32,Measured,15.97297672,Converted,"Minsitry of Science, Technology and Innovation (MOSTI)",1.620286942,103.6563339,No
+Malaysia,Tanah Rata,2014,"1 station, NA",19.56666667,Measured,10.3079786,Converted,"Minsitry of Science, Technology and Innovation (MOSTI)",4.473849773,101.3785706,No
+Myanmar,Kathar,2013,"1 station, NA",76,Measured,42.27050002,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,24.18211937,96.33058167,No
+Myanmar,Kyauk Pa Taung,2013,"1 station, NA",89,Measured,49.50098029,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,20.84434509,95.12757111,No
+Myanmar,Kyaukphyu,2009,"1 station, NA",136,Measured,75.64194741,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,19.42120361,93.54585266,No
+Myanmar,Mawlamyaing,2012,"1 station, NA",124,Measured,68.96765793,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,16.45431709,97.64395905,No
+Myanmar,Meikhtilar,2013,"1 station, NA",59.1,Measured,32.87087567,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,20.87659264,95.86016083,No
+Myanmar,Namkham,2012,"1 station, NA",127,Measured,70.6362303,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,23.83042336,97.68465424,No
+Myanmar,Namthu,2012,"1 station, NA",31,Measured,17.24191448,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,23.09296036,97.39758301,No
+Myanmar,Nay Pyi Taw,2015,1 Urban,47.41901961,Measured,25.84131914,Converted,Ministry of Health and Sports,19.755219,96.086865,No
+Myanmar,Nay Pyi Taw,2016,1 Urban,44.24818182,Measured,24.11334939,Converted,Ministry of Health and Sports,19.755219,96.086865,No
+Myanmar,Nyaung Oo,2013,"1 station, NA",91,Measured,50.61336187,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,21.17725182,94.92470551,No
+Myanmar,Pyay-Aunglan,2013,"1 station, NA",44.4,Measured,24.69487107,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,19.36027336,95.21884155,No
+Myanmar,Pyin Oo Lwin,2012,"1 station, NA",140,Measured,77.86671057,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,22.03917694,96.4716568,No
+Myanmar,Sintgaing,2009,"1 station, NA",80,Measured,44.49526318,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,21.73405457,96.10632324,No
+Myanmar,Taungoo,2013,"1 station, NA",137,Measured,76.1981382,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,18.93983459,96.43436432,No
+Myanmar,Thaungtha,2009,"1 station, NA",80,Measured,44.49526318,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,21.8858757,96.05467987,No
+Myanmar,Yangon,2015,1 Urban,62.18153846,Measured,33.88625478,Converted,Ministry of Health and Sports,16.821633,96.184949,No
+Myanmar,Yangon,2016,1 Urban,47.03673469,Measured,25.63299036,Converted,Ministry of Health and Sports,16.821633,96.184949,No
+Myanmar,Yenanchaung,2009,"1 station, NA",120,Measured,66.74289477,Converted,http://asialeds.org/sites/default/files/resource/file/Myanmar_country_profile.pdf,20.46233368,94.87065887,No
+Nepal,Kathmandu,2013,-,88.29703926,Converted,49.11,Measured,"NHRC and MOH, Government of Nepal. 2015. Situation analysis of the ambient air pollution and respiratory health effect in Kathmandu Valley. Kathmandu: Nepal Health Research Council (NHRC)",27.7,85.333333,Yes
+Pakistan,Faisalabad,2013,6 N.A.,148.1666667,Measured,36.5,Measured,"Niaz Y. et al, (2016), Pak. J. Agri. Sci., Vol. 53(1), 97-106; DOI: 10.21162/PAKJAS/16.3623",31.4162963,73.0787963,No
+Pakistan,Islamabad,2011,-,216.8569819,Converted,66.1,Measured,"Measurements and analysis of air quality in Islamabad, Pakistan",33.68330765,73.06439972,No
+Pakistan,Karachi,2009,-,289.8534697,Converted,88.35,Measured,"Khwaja et al (2012), Effect of air pollution on daily morbidity in Karachi, Pakistan, J Local and Global Health Sci 2012:3",24.83042145,67.1348114,No
+Pakistan,Lahore,2010,"1 station, 1 station: residential",198,Measured,68,Measured,"Alam K, et al. Aerosol size distribution and mass concentration measurements in various cities of Pakistan, J. Environ. Monit., 2011, 13, 1944",31.46219826,74.29421997,No
+Pakistan,Peshawar,2010,"1 station, 1 station: N/A",540,Measured,111,Measured,"Alam K, et al. Aerosol size distribution and mass concentration measurements in various cities of Pakistan, J. Environ. Monit., 2011, 13, 1944",34.0149765,71.58049011,No
+Pakistan,Rawalpindi,2010,"1 station, 1 station: residential",448,Measured,107,Measured,"Alam K, et al. Aerosol size distribution and mass concentration measurements in various cities of Pakistan, J. Environ. Monit., 2011, 13, 1944",33.59839249,73.04413605,No
+Philippines,Baguio City,2013,"1 station, NA",84,Measured,44.25231016,Converted,"National Air Quality Status Report, 2012-2013",16.41700935,120.617424,No
+Philippines,Caloocan City,2015,1 N.A.,68.36036036,Converted,32,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.756578,121.044977,No
+Philippines,Cebu,2013,"2 stations, NA",53.5,Measured,28.18450707,Converted,"National Air Quality Status Report, 2012-2013",10.31682491,123.9054031,No
+Philippines,City Of Malabon,2015,1 N.A.,72.63288288,Converted,34,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.668075,120.965845,No
+Philippines,Daguapan City,2013,"1 station, NA",51,Measured,26.86747403,Converted,"National Air Quality Status Report, 2012-2013",16.04270554,120.3333359,No
+Philippines,Davao City,2013,"1 station, NA",21,Measured,11.06307754,Converted,"National Air Quality Status Report, 2012-2013",7.19070816,125.4553375,No
+Philippines,Las Pina City,2015,1 N.A.,61.95157658,Converted,29,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.444546,120.993874,No
+Philippines,Las Pina City,2016,1 N.A.,40.58896396,Converted,19,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.444546,120.993874,No
+Philippines,Manila,2010,1 N.A.,149.5,Measured,69.98207696,Converted,Environmental Management Bureau Department of Environment and Natural Resources,14.609318,120.984418,Yes
+Philippines,Manila,2011,1 N.A.,121.5,Measured,56.87506589,Converted,Environmental Management Bureau Department of Environment and Natural Resources,14.609318,120.984418,Yes
+Philippines,Manila,2012,1 N.A.,125,Measured,58.51344228,Converted,Environmental Management Bureau Department of Environment and Natural Resources,14.609318,120.984418,Yes
+Philippines,Manila,2013,1 N.A.,129.5,Measured,60.6199262,Converted,Environmental Management Bureau Department of Environment and Natural Resources,14.609318,120.984418,Yes
+Philippines,Manila,2014,1 N.A.,121,Measured,56.64101212,Converted,Environmental Management Bureau Department of Environment and Natural Resources,14.609318,120.984418,Yes
+Philippines,Manila,2015,1 N.A.,110.5,Measured,17,Measured,Environmental Management Bureau Department of Environment and Natural Resources,14.609318,120.984418,Yes
+Philippines,Manila,2016,1 N.A.,117.5,Measured,29,Measured,Environmental Management Bureau Department of Environment and Natural Resources,14.609318,120.984418,Yes
+Philippines,Marikina City,2016,1 N.A.,66.2240991,Converted,31,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.648409,121.109297,No
+Philippines,Muntinlupa City,2015,1 N.A.,36.31644144,Converted,17,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.408133,121.041467,No
+Philippines,Muntinlupa City,2016,1 N.A.,32.04391892,Converted,15,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.408133,121.041467,No
+Philippines,Navotas City,2015,1 N.A.,91.85923423,Converted,43,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.67149,120.939847,No
+Philippines,Navotas City,2016,1 N.A.,96.13175676,Converted,45,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.67149,120.939847,No
+Philippines,Nia Road,2015,1 N.A.,55.54279279,Converted,26,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.640048,121.04313,No
+Philippines,Nia Road,2016,1 N.A.,98.26801802,Converted,46,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.640048,121.04313,No
+Philippines,Paranaque City,2015,1 N.A.,34.18018018,Converted,16,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.47931,121.019823,No
+Philippines,Paranaque City,2016,1 N.A.,42.72522523,Converted,20,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.47931,121.019823,No
+Philippines,Pasay City,2016,1 N.A.,46.99774775,Converted,22,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.537752,121.001379,No
+Philippines,Pasig,2016,1 N.A.,72.63288288,Converted,34,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.576377,121.08511,No
+Philippines,Pateros City,2015,1 N.A.,68.36036036,Converted,32,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.548378,121.070773,No
+Philippines,Quezon City,2016,1 N.A.,38.4527027,Converted,18,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.676041,121.0437,No
+Philippines,San Carlos City,2013,"1 station, NA",61,Measured,32.13560619,Converted,"National Air Quality Status Report, 2012-2013",10.48127079,123.419342,No
+Philippines,Taguig,2016,1 N.A.,49.13400901,Converted,23,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.517618,121.050864,No
+Philippines,Urdaneta,2013,"1 station, NA",45,Measured,23.70659473,Converted,"National Air Quality Status Report, 2012-2013",16.00380707,120.5761719,No
+Philippines,Valenzuela City,2016,1 N.A.,42.72522523,Converted,20,Measured,"Annual Report, Environmental Management Bureau, Department of Environment and Natural Resources",14.701056,120.983023,No
+Philippines,Zamboanga City,2013,"2 stations, NA",48.5,Measured,25.55044099,Converted,"National Air Quality Status Report, 2012-2013",6.906873226,122.0814362,No
+Singapore,Singapore,2014,"22 stations in urban, industrial and suburban locations distributed all over Singapore",30,Measured,18,Measured,Key Environment Statistics 2015 published by the Ministry of the Environment Water & Resources,1.352082968,103.8198395,Yes
+Sri Lanka,Colombo,2011,"1 station, NA",64,Measured,35.59621054,Converted,"Clean Air Asia, primary source: Central Environmental Authority",6.936138153,79.84409332,Yes
+Thailand,Ayutthaya,2016,1 N.A.,43.65972222,Measured,29.63454577,Converted,Pollution Control Department,14.34936668,100.5685355,Yes
+Thailand,Bangkok,2015,11 N.A.,40.6751607,Measured,27.87037037,Measured,,13.74622118,100.5544779,Yes
+Thailand,Chiang Mai,2016,2 N.A.,49.35666101,Measured,33.50140943,Converted,Pollution Control Department,18.81446096,98.98084261,Yes
+Thailand,Chiang Rai,2016,2 N.A.,52.32232124,Measured,35.51438591,Converted,Pollution Control Department,19.90961884,99.82667883,Yes
+Thailand,Chon Buri,2016,3 N.A.,39.73068582,Measured,26.96766648,Converted,Pollution Control Department,13.2178207,100.9435778,Yes
+Thailand,Khon Kaen,2014,"1 station, Residential Urban Background",51,Measured,28.36573028,Converted,"Air Quality and Noise Management Bureau, Pollution Control Department",16.44532967,102.8352509,No
+Thailand,Lampang,2016,4 N.A.,47.79571532,Measured,32.44189933,Converted,Pollution Control Department,18.3084127,99.66584917,Yes
+Thailand,Lamphun,2014,"1 station, Residential Urban Background",44,Measured,24.47239475,Converted,"Air Quality and Noise Management Bureau, Pollution Control Department",18.56744385,99.00799561,Yes
+Thailand,Loei,2016,1 N.A.,51.07722772,Measured,34.66926416,Converted,Pollution Control Department,13.76393629,100.529078,Yes
+Thailand,Mae Hong Son,2016,1 N.A.,42.35771412,Measured,28.75079258,Converted,Pollution Control Department,19.30450102,97.97152526,Yes
+Thailand,Nakhon Ratchasima,2014,"1 station, Residential Urban Background",51,Measured,28.36573028,Converted,"Air Quality and Noise Management Bureau, Pollution Control Department",14.97972584,102.0983047,No
+Thailand,Nakhon Sawan,2016,1 N.A.,52.32414911,Measured,35.51562659,Converted,Pollution Control Department,15.70784823,100.1319285,Yes
+Thailand,Nan,2016,2 N.A.,40.82395325,Measured,27.7097345,Converted,Pollution Control Department,19.16309852,100.9139122,Yes
+Thailand,Narathiwat,2016,1 N.A.,32.32790802,Measured,21.94294469,Converted,Pollution Control Department,6.427698,101.823568,Yes
+Thailand,Nonthaburi,2014,"2 stations, Industrial Urban Background",45.5,Measured,25.30668093,Converted,"Air Quality and Noise Management Bureau, Pollution Control Department",13.80715561,100.5063171,Yes
+Thailand,Pathum Thani,2014,"1 station, Residential Urban Background",48,Measured,26.69715791,Converted,"Air Quality and Noise Management Bureau, Pollution Control Department",14.03751183,100.6051254,Yes
+Thailand,Phayao,2014,"1 station, Residential Urban Background",41,Measured,22.80382238,Converted,"Air Quality and Noise Management Bureau, Pollution Control Department",19.16386223,99.90271759,No
+Thailand,Phra Nakhon Si Ayutthaya,2014,"1 station, Residential Urban Background",55,Measured,30.59049344,Converted,"Air Quality and Noise Management Bureau, Pollution Control Department",14.3522253,100.5653534,No
+Thailand,Phrae,2016,1 N.A.,48.09917018,Measured,32.64787286,Converted,Pollution Control Department,18.12614,100.1654,Yes
+Thailand,Phuket,2014,"1 station, Residential Urban Background",24,Measured,13.34857895,Converted,"Air Quality and Noise Management Bureau, Pollution Control Department",7.884508133,98.39131927,Yes
+Thailand,Ratchaburi,2016,1 N.A.,44.73325955,Measured,30.36322175,Converted,Pollution Control Department,13.532555,99.814873,Yes
+Thailand,Rayong,2014,"4 stations, Res/Com urban Background",41,Measured,22.80382238,Converted,"Air Quality and Noise Management Bureau, Pollution Control Department",12.67152119,101.2758713,Yes
+Thailand,Sa Kaeo,2016,1 N.A.,33.65871369,Measured,22.84624456,Converted,Pollution Control Department,13.68902848,102.5062069,Yes
+Thailand,Samut Prakan,2014,"4 stations, Industrial Urban Background",50.75,Measured,28.22668258,Converted,"Air Quality and Noise Management Bureau, Pollution Control Department",13.59917164,100.5973282,Yes
+Thailand,Samut Sakhon,2016,1 N.A.,46.94650048,Measured,31.86548485,Converted,Pollution Control Department,13.550478,100.264254,Yes
+Thailand,Saraburi,2016,2 N.A.,76.43122631,Measured,51.87858646,Converted,Pollution Control Department,14.60331069,100.9021555,Yes
+Thailand,Songkhla,2016,1 N.A.,41.55225738,Measured,28.20407942,Converted,Pollution Control Department,7.0100008,100.2900003,Yes
+Thailand,Surat Thani,2016,1 N.A.,34.04021448,Measured,23.10519267,Converted,Pollution Control Department,9.136807951,99.32071594,Yes
+Thailand,Yala,2016,1 N.A.,32.1393586,Measured,21.81496457,Converted,Pollution Control Department,6.549993793,101.2799986,Yes
+Viet Nam,Da Nang,2011,1 N.A.,19,Measured,8.894043226,Converted,Government of Viet Nam,16.054407,108.202167,No
+Viet Nam,Da Nang,2012,1 N.A.,20,Measured,9.362150764,Converted,Government of Viet Nam,16.054407,108.202167,No
+Viet Nam,Da Nang,2013,1 N.A.,19.7,Measured,9.221718503,Converted,Government of Viet Nam,16.054407,108.202167,No
+Viet Nam,Da Nang,2014,1 N.A.,19.8,Measured,9.268529257,Converted,Government of Viet Nam,16.054407,108.202167,No
+Viet Nam,Da Nang,2015,1 N.A.,19.9,Measured,9.315340011,Converted,Government of Viet Nam,16.054407,108.202167,No
+Viet Nam,Ha Long,2014,1 N.A.,48,Measured,22.46916183,Converted,Government of Viet Nam,20.910051,107.183902,No
+Viet Nam,Ha Long,2015,1 N.A.,47,Measured,22.0010543,Converted,Government of Viet Nam,20.910051,107.183902,No
+Viet Nam,Ha Noi,2011,1 N.A.,46,Measured,21.53294676,Converted,Government of Viet Nam,21.027764,105.83416,Yes
+Viet Nam,Ha Noi,2012,1 N.A.,47,Measured,22.0010543,Converted,Government of Viet Nam,21.027764,105.83416,Yes
+Viet Nam,Ha Noi,2013,1 N.A.,44,Measured,20.59673168,Converted,Government of Viet Nam,21.027764,105.83416,Yes
+Viet Nam,Ha Noi,2014,1 N.A.,51,Measured,23.87348445,Converted,Government of Viet Nam,21.027764,105.83416,Yes
+Viet Nam,Ha Noi,2015,1 N.A.,49,Measured,22.93726937,Converted,Government of Viet Nam,21.027764,105.83416,Yes
+Viet Nam,Ha Noi,2016,1 Urban,102.3407706,Converted,47.9064862,Measured,AirNow DOS,21.02163,105.818933,Yes
+Viet Nam,Ho Chi Minh City,2016,1 Urban,89.8126297,Converted,42.04196899,Measured,AirNow DOS,10.783361,106.700866,Yes
+Viet Nam,Hue,2013,1 N.A.,21,Measured,9.830258303,Converted,Government of Viet Nam,16.463712,107.590863,No
+Viet Nam,Hue,2014,1 N.A.,16,Measured,7.489720611,Converted,Government of Viet Nam,16.463712,107.590863,No
+Viet Nam,Hue,2015,1 N.A.,15,Measured,7.021613073,Converted,Government of Viet Nam,16.463712,107.590863,No
+Viet Nam,Nha Trang,2012,1 N.A.,13,Measured,6.085397997,Converted,Government of Viet Nam,12.238791,109.196749,No
+Viet Nam,Nha Trang,2013,1 N.A.,30,Measured,14.04322615,Converted,Government of Viet Nam,12.238791,109.196749,No
+Viet Nam,Nha Trang,2014,1 N.A.,12,Measured,5.617290459,Converted,Government of Viet Nam,12.238791,109.196749,No
+Viet Nam,Nha Trang,2015,1 N.A.,14,Measured,6.553505535,Converted,Government of Viet Nam,12.238791,109.196749,No
+Viet Nam,Viet Tri,2013,1 N.A.,27,Measured,12.63890353,Converted,Government of Viet Nam,21.35701,105.352633,No
+Viet Nam,Viet Tri,2014,1 N.A.,22,Measured,10.29836584,Converted,Government of Viet Nam,21.35701,105.352633,No

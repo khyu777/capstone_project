@@ -6,6 +6,14 @@ df_orig <- read_csv("data/test.csv") %>%
   rename("PM2.5" = pm25)
 df <- aggregate(. ~ Country, df_orig, sum)
 
+#country profile data
+ctprof <- read_csv("data/country_profile.csv") %>% 
+  select(country, percent_urban) %>% 
+  mutate(cat_pct_urban = cut(percent_urban, breaks = c(0, 25, 50, 75, 100), labels = c("Low", "Medium", "High", "Very High"))) %>% 
+  filter(!is.na(percent_urban))
+#read in database
+
+
 #combine actual pollutant data
 BD <- read_csv("data/bangladesh.csv") %>% 
   mutate(country = recode(country, "BD" = "Bangladesh"), value = replace(value, which(value < 0), NA))
@@ -31,9 +39,9 @@ world_spdf <- subset(world_spdf, REGION == 142 | NAME == "Taiwan")
 #add in our data to shapefile
 tmp <- left_join(world_spdf@data, df, by = c("NAME" = "Country")) %>% 
   select(NAME, AREA, LON:CO) 
+tmp <- left_join(tmp, ctprof, by = c("NAME" = "country"))
 tmp <- tmp %>% 
   mutate(id = 1:nrow(tmp))   
-#mutate_at(c("PM2.5", "Household Air Pollution", "Ozone", "NOx", "SO2", "CO", "VOCs"), funs(case_when(. > 7 ~ "High", . > 3 & . <= 7 ~ "Med", . <= 3 ~ "Low")))
 world_spdf@data <- tmp
 
 #put dataframe in a tidy format
