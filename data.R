@@ -6,24 +6,33 @@ df_orig <- read_csv("data/test.csv") %>%
   rename("PM2.5" = pm25)
 df <- aggregate(. ~ Country, df_orig, sum)
 
+
+
 #country profile data
 ctprof <- read_csv("data/country_profile.csv") %>% 
   select(country, percent_urban) %>% 
   mutate(cat_pct_urban = cut(percent_urban, breaks = c(0, 25, 50, 75, 100), labels = c("Low", "Medium", "High", "Very High"))) %>% 
   filter(!is.na(percent_urban))
+
 #read in database
+air_quality <- read_csv("data/air_quality.csv") %>% 
+  janitor::clean_names() %>%
+  rename(city_region = city_or_region_if_applicable, month = month_if_applicable) %>% 
+  select(country:unit) %>% 
+  mutate(year = as.factor(year))
 
+air_quality_annual <- air_quality %>% 
+  filter(resolution == "Annual")
+air_quality_monthly <- air_quality %>% 
+  filter(resolution == "Monthly")
+air_quality_calculated <- air_quality_monthly %>%
+  group_by(country, year, pollutant) %>% 
+  summarize(concentration = mean(concentration))
 
-#combine actual pollutant data
-BD <- read_csv("data/bangladesh.csv") %>% 
-  mutate(country = recode(country, "BD" = "Bangladesh"), value = replace(value, which(value < 0), NA))
-IN <- read_csv("data/india.csv") %>% 
-  mutate(country = recode(country, "IN" = "India"))
-TH <- read_csv("data/thailand.csv") %>% 
-  mutate(country = recode(country, "TH" = "Thailand"))
-pm <- do.call(rbind, list(BD, IN, TH)) %>% 
-  select(country, local, parameter, value) %>% 
-  mutate(parameter = recode(parameter, "pm25" = "PM2.5", "o3" = "Ozone", "no2" = "NOx", "so2" = "SO2", "co" = "CO"))
+air_quality_calculated %>% 
+  filter(country == "Nepal", pollutant == "PM2.5") %>% 
+  ggplot() +
+  geom_point(aes(year, concentration))
 
 #Download .shp file on the web:
 #download.file("http://thematicmapping.org/downloads/TM_WORLD_BORDERS_SIMPL-0.3.zip", destfile = "world_shape_file.zip")
@@ -37,11 +46,13 @@ world_spdf <- readOGR(dsn = paste(getwd(), "shapefile", sep = "/"), layer = "TM_
 world_spdf <- subset(world_spdf, REGION == 142 | NAME == "Taiwan")
 
 #add in our data to shapefile
-tmp <- left_join(world_spdf@data, df, by = c("NAME" = "Country")) %>% 
-  select(NAME, AREA, LON:CO) 
+#tmp <- left_join(world_spdf@data, df, by = c("NAME" = "Country")) %>% 
+#  select(NAME, AREA, LON:CO) 
 tmp <- left_join(tmp, ctprof, by = c("NAME" = "country"))
+tmp$NAME[tmp$NAME == "Viet Nam"] <- "Vietnam"
 tmp <- tmp %>% 
-  mutate(id = 1:nrow(tmp))   
+  mutate(id = 1:nrow(tmp))
+
 world_spdf@data <- tmp
 
 #put dataframe in a tidy format

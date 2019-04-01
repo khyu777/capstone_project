@@ -173,28 +173,26 @@ server <- function(input, output, session) {
     event <- input$mymap_shape_click
     
     name <- df_subset()$NAME[df_subset()$id == event$id] #get country name based on ID
-    normal <- df_subset() %>% mutate(AREA = 5.8 * (1-((AREA-min(AREA))/(max(AREA)-min(AREA)))))
-    country_sp <- normal %>% 
+    country_sp <- df_subset() %>% mutate(AREA = 5.8 * (1-((AREA-min(AREA))/(max(AREA)-min(AREA))))) %>% 
       filter(NAME == name)
     
     leafletProxy("mymap") %>% 
       setView(country_sp$LON, country_sp$LAT, zoom = country_sp$AREA)
     
     #filter data based on country and pollutant
-    rv$tb <- pm %>%
-      select(country, parameter, value, local) %>%
-      filter(country == name, parameter == input$pollutant)
+    rv$tb <- air_quality_calculated %>%
+      filter(country == name, pollutant == input$pollutant)
 
     output$plot <- renderPlot({
       rv$tb %>% ggplot() +
-        geom_line(aes(local, value))
+        geom_point(aes(year, concentration))
     })
 
     output$country <- renderText({
       paste(name, " (", input$pollutant, ")", sep = "")
     })
 
-    if (name %in% rv$tb$country & input$pollutant %in% rv$tb$parameter){
+    if (name %in% rv$tb$country & input$pollutant %in% rv$tb$pollutant){
       output$data <- renderUI({
         plotOutput("plot", height = 250)
       })
