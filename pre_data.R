@@ -2,13 +2,14 @@ library(tidyverse)
 library(plotly)
 
 #air quality data processing
-air_quality <- read_csv("data/air_quality.csv") %>% 
+air_quality <- read_csv("data/air_quality_estimates.csv") %>% 
   janitor::clean_names() %>%
   rename(city_region = city_or_region_if_applicable, month = month_if_applicable) %>% 
   select(country:unit)
 
 air_quality_annual <- air_quality %>% 
-  filter(resolution == "Annual")
+  filter(resolution == "Annual") %>% 
+  select(-city_region, -month)
 air_quality_monthly <- air_quality %>% 
   filter(resolution == "Monthly")
 #annual
@@ -103,7 +104,19 @@ sources_tidy %>%
   ggplot(aes(x = study_year, y = value)) +
   geom_area(aes(group = source, fill = source))
 
+sources_tidy %>% 
+  filter(study_year == "2010/2015") %>% 
+  ggplot(aes(x="", y = value, fill = source)) +
+  geom_bar(width = 1, stat = "identity") +
+  coord_polar("y", start = 0)
+
 #air quality estimates plot (annual)
+air_quality_annual %>% 
+  filter(country == "Bangladesh", pollutant == "Ambient PM2.5") %>% 
+  ggplot() +
+  geom_line(aes(year, concentration), group = 1) + 
+  scale_x_continuous(breaks = c(1990, 1995, 2000, 2005, 2010, 2015)) + 
+  geom_hline(yintercept = 20, linetype = "dashed", color = "red", size = 1)
 air_quality_calculated <- air_quality_monthly %>%
   group_by(country, year, pollutant) %>% 
   summarize(concentration = mean(concentration)) %>% 

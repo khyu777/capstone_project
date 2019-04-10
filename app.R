@@ -47,16 +47,12 @@ body <- dashboardBody(
            box(width = NULL, 
                leafletOutput("mymap", height = "81vh"),
                column(width = 12, actionButton("reset_button", "Reset View"), align = "center")
-               ) 
-           ), 
+           ) 
+    ), 
     column(width = 4,
            box(width = NULL,
                selectInput(
-                 inputId = "pollutant", label = "Choose a pollutant", choices = unique(tidy_world$pollutant)
-               )),
-           box(width = NULL,
-               selectInput(
-                 inputId = "year", label = "Choose a year", choices = unique(sort(measurements$year))
+                 inputId = "pollutant", label = "Choose a pollutant", choices = unique(air_quality_annual$pollutant)
                )),
            box(width = NULL, height = 350,
                title = "Trends", status = "primary", 
@@ -67,7 +63,11 @@ body <- dashboardBody(
                                     text-align: center}"),
                          tags$style("#nodata{text-align:center}")),
                uiOutput("data")
-               ),
+               ), 
+           box(width = NULL,
+               selectInput(
+                 inputId = "year", label = "Choose a year", choices = unique(sort(air_quality_annual$year))
+               )),
            box(width = NULL,  height = 150, solidHeader = TRUE,
                title = "Information",
                tags$div(align = "left",
@@ -76,11 +76,11 @@ body <- dashboardBody(
                                            label = NULL,
                                            choices = list("Monitors" = "monitors",
                                                           "Pollutant Level" = "pol_lvl")
-                                           )
                         )
-              )
-           ) 
-  )
+               )
+           )
+               ) 
+    )
 )
 
 #initiate UI
@@ -95,13 +95,7 @@ server <- function(input, output, session) {
   
   #subset data based on input pollutant
   df_subset <- reactive({
-    a <- subset(tidy_world, pollutant == input$pollutant) %>% 
-      mutate(cat_sources = cut(num_sources, breaks = c(0, 3, 7, 10), labels = c("Low", "Medium", "High")))
-  })
-  
-  df_with_data <- reactive({
-    b <- subset(tidy_world, pollutant == input$pollutant) %>% 
-      filter(!is.na(num_sources))
+    a <- subset(world_spdf@data, pollutant %in% c(input$pollutant, NA) & year %in% c(input$year, NA))
   })
   
   #create leaflet map output
@@ -118,19 +112,27 @@ server <- function(input, output, session) {
   observe({
     #set bin and color category
     #pal <- colorBin("YlOrRd", domain = df_subset()$num_sources, bins = bins, na.color = "transparent")
-    pal <- colorFactor("YlOrRd", ctrprof$cat_pct_urban)
-    
+    pal <- colorNumeric("YlOrRd", df_subset()$concentration)
+    print(df_subset())  
     #set text popup
-    mytext = paste("Country: ", ctrprof$NAME,"<br/>", "% Urban Population: ", ctrprof$percent_urban) %>%
+    mytext = paste("Country: ", df_subset()$NAME,"<br/>", "Level (ug/m3): ", df_subset()$concentration, df_subset()$year) %>%
       lapply(htmltools::HTML)
-     
+    
     #add data to map
+    #country_specific <- subset(world_spdf, NAME == "Burma")
+    #leafletProxy("mymap") %>% 
+    #  addPolygons(data = country_specific,
+    #              fillColor = "Blue",
+    #              weight = 1.5,
+    #              opacity = 1,
+    #              color = "grey",
+    #              fillOpacity = .3)
     leafletProxy("mymap") %>%
       clearShapes() %>%
       addMapPane("polygons", zIndex = 410) %>% 
       addMapPane("pollution", zIndex = 420) %>% 
       addPolygons(data = world_spdf,
-                  fillColor = ~pal(ctrprof$cat_pct_urban),
+                  fillColor = ~pal(df_subset()$concentration),
                   weight = 1.5,
                   opacity = 1,
                   color = "grey",
@@ -149,19 +151,19 @@ server <- function(input, output, session) {
                     textsize = "15px",
                     direction = "auto"),
                   options = pathOptions(pane = "polygons")
-                  )  
-    })
+      )  
+  })
   
   #create legend separately
   observe({
-    proxy <- leafletProxy("mymap", data = ctrprof)
+    proxy <- leafletProxy("mymap", data = df_subset())
     proxy %>% clearControls()
     proxy %>%
       addLegend(
-        pal <- colorFactor("YlOrRd", ctrprof$cat_pct_urban),
-        values = ~ctrprof$cat_pct_urban,
+        pal <- colorNumeric("YlOrRd", df_subset()$concentration),
+        values = ~df_subset()$concentration,
         opacity = 0.7,
-        title = "% Urban Population",
+        title = paste(input$pollutant, "Level", sep = " "),
         position = "bottomleft"
       )
   })
@@ -171,6 +173,7 @@ server <- function(input, output, session) {
   #output plot based on click
   observeEvent(input$mymap_shape_click, {
     event <- input$mymap_shape_click
+    print(event$id)
     
     name <- df_subset()$NAME[df_subset()$id == event$id] #get country name based on ID
     country_sp <- df_subset() %>% mutate(AREA = 5.8 * (1-((AREA-min(AREA))/(max(AREA)-min(AREA))))) %>% 
@@ -180,18 +183,18 @@ server <- function(input, output, session) {
       setView(country_sp$LON, country_sp$LAT, zoom = country_sp$AREA)
     
     #filter data based on country and pollutant
-    rv$tb <- air_quality_calculated %>%
-      filter(country == name, pollutant == input$pollutant)
-
+    rv$tb <- df_subset() %>%
+      filter(NAME == name)
+    
     output$plot <- renderPlot({
       rv$tb %>% ggplot() +
         geom_bar(aes(year, concentration), stat = "identity", width = 0.5)
     })
-
+    
     output$country <- renderText({
       paste(name, " (", input$pollutant, ")", sep = "")
     })
-
+    
     if (name %in% rv$tb$country & input$pollutant %in% rv$tb$pollutant){
       output$data <- renderUI({
         plotOutput("plot", height = 250)
@@ -203,9 +206,9 @@ server <- function(input, output, session) {
       })
       output$data <- NULL
     }
-
+    
   })
-
+  
   #clear plot if input changes
   observeEvent(input$pollutant, {
     change <- input$pollutant
@@ -239,7 +242,7 @@ server <- function(input, output, session) {
     
     m <- "monitors" %in% checkbox
     s <- "pol_lvl" %in% checkbox
- 
+    
     #set pm25 color
     pal <- colorBin(c("#3c9b01", "#c60000"), ms()$level, bins = c(0, 10, 15, 25, 35, 50, ceiling(max(ms()$level))))
     

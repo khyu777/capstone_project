@@ -1,13 +1,5 @@
 library(tidyverse)
 
-#read in availability data and obtain aggregate
-df_orig <- read_csv("data/test.csv") %>% 
-  select(Country:CO) %>% 
-  rename("PM2.5" = pm25)
-df <- aggregate(. ~ Country, df_orig, sum)
-
-
-
 #country profile data
 ctrprof <- read_csv("data/country_profile.csv") %>% 
   select(country, percent_urban) %>% 
@@ -15,14 +7,14 @@ ctrprof <- read_csv("data/country_profile.csv") %>%
   filter(!is.na(percent_urban))
 
 #read in database
-air_quality <- read_csv("data/air_quality.csv") %>% 
+air_quality <- read_csv("data/air_quality_estimates.csv") %>% 
   janitor::clean_names() %>%
   rename(city_region = city_or_region_if_applicable, month = month_if_applicable) %>% 
-  select(country:unit) %>% 
-  mutate(year = as.factor(year))
+  select(country:unit)  
 
 air_quality_annual <- air_quality %>% 
-  filter(resolution == "Annual")
+  filter(resolution == "Annual") %>% 
+  select(-city_region, -month)
 air_quality_monthly <- air_quality %>% 
   filter(resolution == "Monthly")
 air_quality_calculated <- air_quality_monthly %>%
@@ -43,23 +35,20 @@ library(rgdal)
 world_spdf <- readOGR(dsn = paste(getwd(), "shapefile", sep = "/"), layer = "TM_WORLD_BORDERS_SIMPL-0.3")
 
 #subset asia shp
-world_spdf <- subset(world_spdf, REGION == 142 | NAME == "Taiwan")
+world_spdf <- subset(world_spdf, REGION == 142)
 
 #add in our data to shapefile
-tmp <- left_join(world_spdf@data, df, by = c("NAME" = "Country")) %>% 
-  select(NAME, AREA, LON:CO) 
-tmp <- tmp %>% 
-  mutate(id = 1:nrow(tmp))
-ctrprof <- left_join(world_spdf@data, ctrprof, by = c("NAME" = "country"))
-ctrprof$NAME[ctrprof$NAME == "Viet Nam"] <- "Vietnam"
-ctrprof <- ctrprof %>% 
-  mutate(id = 1:nrow(ctrprof))
+world_spdf@data <- world_spdf@data %>% 
+  mutate(id = 1:nrow(world_spdf@data), NAME = recode(NAME, Burma = "Myanmar", "Viet Nam" = "Vietnam"))
+tmp <- left_join(world_spdf@data, air_quality_annual, by = c("NAME" = "country")) %>%
+  select(NAME, AREA, LON:concentration)
 
-world_spdf@data <- ctrprof
+#ctrprof <- left_join(world_spdf@data, ctrprof, by = c("NAME" = "country"))
+#ctrprof$NAME[ctrprof$NAME == "Viet Nam"] <- "Vietnam"
+#ctrprof <- ctrprof %>% 
+#  mutate(id = 1:nrow(ctrprof))
 
-#put dataframe in a tidy format
-tidy_world <- tmp %>%
-  gather(pollutant, num_sources, PM2.5:CO)
+world_spdf@data <- tmp
 
 #load monitor data
 measurements <- read_csv("data/WHO_AirQuality_Database_2018.csv") %>% 
