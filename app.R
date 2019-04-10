@@ -97,6 +97,10 @@ server <- function(input, output, session) {
   df_subset <- reactive({
     a <- subset(world_spdf@data, pollutant %in% c(input$pollutant, NA) & year %in% c(input$year, NA))
   })
+  df_subset_data <- reactive({
+    df_subset() %>%
+      filter(!is.na(concentration))
+  })
   
   #create leaflet map output
   output$mymap <- renderLeaflet({
@@ -113,9 +117,9 @@ server <- function(input, output, session) {
     #set bin and color category
     #pal <- colorBin("YlOrRd", domain = df_subset()$num_sources, bins = bins, na.color = "transparent")
     pal <- colorNumeric("YlOrRd", df_subset()$concentration)
-    print(df_subset())  
+    print(df_subset_data())  
     #set text popup
-    mytext = paste("Country: ", df_subset()$NAME,"<br/>", "Level (ug/m3): ", df_subset()$concentration, df_subset()$year) %>%
+    mytext = paste("Country: ", df_subset()$NAME,"<br/>", "Level (ug/m3): ", df_subset()$concentration) %>%
       lapply(htmltools::HTML)
     
     #add data to map
@@ -160,11 +164,12 @@ server <- function(input, output, session) {
     proxy %>% clearControls()
     proxy %>%
       addLegend(
-        pal <- colorNumeric("YlOrRd", df_subset()$concentration),
-        values = ~df_subset()$concentration,
+        pal <- colorNumeric("YlOrRd", df_subset_data()$concentration, reverse = TRUE),
+        values = ~df_subset_data()$concentration,
         opacity = 0.7,
-        title = paste(input$pollutant, "Level", sep = " "),
-        position = "bottomleft"
+        title = input$pollutant,
+        position = "bottomleft",
+        labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))
       )
   })
   

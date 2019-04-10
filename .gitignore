@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 /data/etc
+/data/old
+/data/googlesheets
