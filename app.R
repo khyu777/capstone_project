@@ -24,7 +24,7 @@ header <- dashboardHeader(
 tweaks <- 
   list(tags$head(tags$style(HTML("
                                  .multicol { 
-                                 height: 100px;
+                                 height: 40px;
                                  -webkit-column-count: 2; /* Chrome, Safari, Opera */ 
                                  -moz-column-count: 2;    /* Firefox */ 
                                  column-count: 2; 
@@ -36,8 +36,8 @@ tweaks <-
                                  padding-left: 20px;
                                  -webkit-margin-after: 0px !important; 
                                  }
-                                 
-                                 ")) 
+                                 ")
+                            ) 
   ))
 
 #create dashboard body
@@ -51,26 +51,29 @@ body <- dashboardBody(
            ) 
     ), 
     column(width = 4,
-           box(width = NULL,
+           box(width = NULL, height = "10vh",
                status = "primary",
                selectInput(
                  inputId = "pollutant", label = "Choose a pollutant", choices = unique(air_quality_annual$pollutant)
                )),
-            box(width = NULL,
+            box(width = NULL, height = "10vh",
                 status = "primary",
                 selectInput(
                  inputId = "year", label = "Choose a year", choices = unique(sort(air_quality_annual$year))
                )),
-           tabBox(width = NULL, height = 390,
-               title = "Trends", 
+           tabBox(width = NULL, height = "41vh",
+               title = span("Annual Trends",
+                            style = "font-weight: bold"),
                tabPanel(
                  "Health",
+                 textOutput("graph_instruction"),
                  textOutput("death_plot_title"),
                  textOutput("nodata"),
                  tags$head(tags$style("#death_plot_title{font-size: 15px;
                                       font-weight: bold;
                                       text-align: center}"),
-                           tags$style("#nodata{text-align:center}")),
+                           tags$style("#nodata{text-align:center}"),
+                           tags$style("#graph_instruction{text-align:center}")),
                  uiOutput("dp")
                ),
                tabPanel(
@@ -93,19 +96,28 @@ body <- dashboardBody(
                            tags$style("#nodata_sp{text-align:center}")),
                  uiOutput("sp")
                )),
-          box(width = NULL,  height = 100, status = "primary",
-               title = "Information",
-               tags$div(align = "left",
-                        class = "multicol",
-                        checkboxGroupInput("info",
-                                           label = NULL,
-                                           choices = list("Monitors" = "monitors",
-                                                          "Pollutant Level" = "pol_lvl")
-                        )
-               )
-           )
-               ) 
+          box(width = NULL,  height = "20vh", status = "primary",
+              column(
+                12,
+                div("Information", style="font-size:150%; font-weight: bold"),
+                tags$div(align = "left",
+                         class = "multicol",
+                         checkboxGroupInput("info",
+                                            label = NULL,
+                                            choices = list("Monitoring Stations" = "monitors",
+                                                           "Pollutant Level" = "pol_lvl")
+                         )
+                ),
+                div("NOTE: Monitoring station data is only avilable between 2009-2016", style = "padding:7px"), 
+                div(style = "border-top: 1px solid black; padding:6px"),
+                div(actionButton(inputId='ab1', label="Explore Database", 
+                             onclick ="window.open('https://docs.google.com/spreadsheets/d/1GtNEIDimJ1mGutMAVG9udTnHNXJWuN3oQGJDx2Nnmk0/edit?zx=bn3fh2b3rczn#gid=973186796', '_blank')"),
+                    align = "center"
+                )
+              )
+          )
     )
+  )
 )
 
 #initiate UI
@@ -118,6 +130,10 @@ ui <- dashboardPage(
 
 server <- function(input, output, session) {
   
+  #graph instruction
+  output$graph_instruction <- renderText({
+    "Click on a country to see graphs"
+  })
   #subset data based on input pollutant
   df_subset <- reactive({
     a <- subset(world_spdf@data, pollutant %in% c(input$pollutant, NA) & year %in% c(input$year, NA))
@@ -188,7 +204,7 @@ server <- function(input, output, session) {
     proxy %>% clearControls()
     proxy %>%
       addLegend(
-        pal <- colorNumeric("YlOrRd", 
+        pal <- colorBin("YlOrRd", 
                             c(floor(min(df_subset_data()$concentration)), ceiling(max(df_subset_data()$concentration))),
                             reverse = TRUE),
         values = c(floor(min(df_subset_data()$concentration)), ceiling(max(df_subset_data()$concentration))),
@@ -205,6 +221,8 @@ server <- function(input, output, session) {
   #output plot based on click
   observeEvent(input$mymap_shape_click, {
     event <- input$mymap_shape_click
+    
+    output$graph_instruction <- NULL
     
     name <- df_subset()$NAME[df_subset()$id == event$id] #get country name based on ID
     country_sp <- df_subset() %>% mutate(AREA = 5.4 * (1-((AREA-min(AREA))/(max(AREA)-min(AREA))))) %>% 
@@ -239,7 +257,8 @@ server <- function(input, output, session) {
         ggplot() +
         geom_line(aes(year, concentration), group = 1) + 
         scale_x_continuous(breaks = c(1990, 1995, 2000, 2005, 2010, 2015)) + 
-        geom_hline(yintercept = 20, linetype = "dashed", color = "red", size = 1)
+        geom_hline(yintercept = 20, linetype = "dashed", color = "red", size = 1)+
+        geom_text(aes(min(rv$pollution$year),20,label = "WHO Standard", vjust = -1, hjust = -0.05))
     })
     
     output$pollution_plot_title <- renderText({
@@ -263,7 +282,7 @@ server <- function(input, output, session) {
     #output death_plot
     if (name %in% rv$deaths$country){
       output$dp <- renderUI({
-        plotOutput("death_plot", height = 300)
+        plotOutput("death_plot", height = "32vh")
       })
       output$nodata <- NULL
     } else {
@@ -276,7 +295,7 @@ server <- function(input, output, session) {
     #output pollution_plot
     if (name %in% rv$pollution$country){
       output$pp <- renderUI({
-        plotOutput("pollution_plot", height = 300)
+        plotOutput("pollution_plot", height = "32vh")
       })
       output$nodata_pp <- NULL
     } else {
@@ -289,7 +308,7 @@ server <- function(input, output, session) {
     #output sources_plot
     if (name %in% rv$sources$country){
       output$sp <- renderUI({
-        plotOutput("sources_plot", height = 300)
+        plotOutput("sources_plot", height = "32vh")
       })
       output$nodata_sp <- NULL
     } else {
