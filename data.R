@@ -26,6 +26,11 @@ air_quality_calculated %>%
   ggplot() +
   geom_point(aes(year, concentration))
 
+health_effects <- read_csv("data/health_effects.csv") %>% 
+  janitor::clean_names()
+health_effects_deaths <- health_effects %>% 
+  filter(measure == "Deaths", age == "All ages")
+
 #Download .shp file on the web:
 #download.file("http://thematicmapping.org/downloads/TM_WORLD_BORDERS_SIMPL-0.3.zip", destfile = "world_shape_file.zip")
 #system("unzip world_shape_file.zip")
@@ -49,6 +54,22 @@ tmp <- left_join(world_spdf@data, air_quality_annual, by = c("NAME" = "country")
 #  mutate(id = 1:nrow(ctrprof))
 
 world_spdf@data <- tmp
+
+#load sources data
+sources <- read_csv("data/sources.csv") %>% 
+  janitor::clean_names() %>% 
+  filter(!is.na(country), !is.na(study_year)) %>% 
+  rename_at(.vars = vars(ends_with("_percent")), .funs = funs(gsub("_percent", "", .))) %>% 
+  select(site_location:other_unspecified_human_origin)
+
+#tidy sources data
+sources_tidy <- sources %>%
+  select(country, site_typology, season, methodology, reference_author, study_year, pollutant, sea_salt:other_unspecified_human_origin) %>% 
+  gather(source, value, sea_salt:other_unspecified_human_origin) %>% 
+  # filter(study_year_end != 2002)
+  arrange(study_year) %>% 
+  mutate(study_year = as.factor(study_year)) %>% 
+  filter(study_year != "2001/2002", season == "year", site_typology == "urban", pollutant == "PM2.5")
 
 #load monitor data
 measurements <- read_csv("data/WHO_AirQuality_Database_2018.csv") %>% 

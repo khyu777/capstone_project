@@ -1,5 +1,5 @@
 #check for missing packages and install
-list.of.packages <- c("shiny", "shinydashboard", "tidyverse", "leaflet", "rgdal", "httr", "jsonlite")
+list.of.packages <- c("shiny", "shinydashboard", "tidyverse", "leaflet", "rgdal", "httr", "jsonlite", "plotly")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
 if (length(new.packages)) install.packages(new.packages)
 
@@ -9,6 +9,7 @@ library(shinydashboard)
 library(tidyverse)
 library(leaflet)
 library(RColorBrewer)
+library(plotly)
 
 #set working directory to file source directory
 #setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -51,24 +52,48 @@ body <- dashboardBody(
     ), 
     column(width = 4,
            box(width = NULL,
+               status = "primary",
                selectInput(
                  inputId = "pollutant", label = "Choose a pollutant", choices = unique(air_quality_annual$pollutant)
                )),
-           box(width = NULL, height = 350,
-               title = "Trends", status = "primary", 
-               textOutput("country"),
-               textOutput("nodata"),
-               tags$head(tags$style("#country{font-size: 20px;
-                                    font-weight: bold;
-                                    text-align: center}"),
-                         tags$style("#nodata{text-align:center}")),
-               uiOutput("data")
-               ), 
-           box(width = NULL,
-               selectInput(
+            box(width = NULL,
+                status = "primary",
+                selectInput(
                  inputId = "year", label = "Choose a year", choices = unique(sort(air_quality_annual$year))
                )),
-           box(width = NULL,  height = 150, solidHeader = TRUE,
+           tabBox(width = NULL, height = 390,
+               title = "Trends", 
+               tabPanel(
+                 "Health",
+                 textOutput("death_plot_title"),
+                 textOutput("nodata"),
+                 tags$head(tags$style("#death_plot_title{font-size: 15px;
+                                      font-weight: bold;
+                                      text-align: center}"),
+                           tags$style("#nodata{text-align:center}")),
+                 uiOutput("dp")
+               ),
+               tabPanel(
+                 "Pollution",
+                 textOutput("pollution_plot_title"),
+                 textOutput("nodata_pp"),
+                 tags$head(tags$style("#pollution_plot_title{font-size: 15px;
+                                      font-weight: bold;
+                                      text-align: center}"),
+                           tags$style("#nodata_pp{text-align:center}")),
+                 uiOutput("pp")
+               ),
+               tabPanel(
+                 "Sources",
+                 textOutput("sources_plot_title"),
+                 textOutput("nodata_sp"),
+                 tags$head(tags$style("#sources_plot_title{font-size: 15px;
+                                      font-weight: bold;
+                                      text-align: center}"),
+                           tags$style("#nodata_sp{text-align:center}")),
+                 uiOutput("sp")
+               )),
+          box(width = NULL,  height = 100, status = "primary",
                title = "Information",
                tags$div(align = "left",
                         class = "multicol",
@@ -116,8 +141,7 @@ server <- function(input, output, session) {
   observe({
     #set bin and color category
     #pal <- colorBin("YlOrRd", domain = df_subset()$num_sources, bins = bins, na.color = "transparent")
-    pal <- colorNumeric("YlOrRd", df_subset()$concentration)
-    print(df_subset_data())  
+    pal <- colorNumeric("YlOrRd", c(floor(min(df_subset_data()$concentration)), ceiling(max(df_subset_data()$concentration))))
     #set text popup
     mytext = paste("Country: ", df_subset()$NAME,"<br/>", "Level (ug/m3): ", df_subset()$concentration) %>%
       lapply(htmltools::HTML)
@@ -141,7 +165,7 @@ server <- function(input, output, session) {
                   opacity = 1,
                   color = "grey",
                   dashArray = "",
-                  fillOpacity = .6,
+                  fillOpacity = .7,
                   layerId = df_subset()$id,
                   highlight = highlightOptions(
                     weight = 3,
@@ -164,13 +188,16 @@ server <- function(input, output, session) {
     proxy %>% clearControls()
     proxy %>%
       addLegend(
-        pal <- colorNumeric("YlOrRd", df_subset_data()$concentration, reverse = TRUE),
-        values = ~df_subset_data()$concentration,
-        opacity = 0.7,
-        title = input$pollutant,
+        pal <- colorNumeric("YlOrRd", 
+                            c(floor(min(df_subset_data()$concentration)), ceiling(max(df_subset_data()$concentration))),
+                            reverse = TRUE),
+        values = c(floor(min(df_subset_data()$concentration)), ceiling(max(df_subset_data()$concentration))),
+        opacity = 0.9,
+        title = paste("<center> Annual </br>", input$pollutant, "</center>"),
         position = "bottomleft",
         labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))
       )
+    print(df_subset_data()$concentration)
   })
   
   rv <- reactiveValues(data = NULL)
@@ -178,40 +205,99 @@ server <- function(input, output, session) {
   #output plot based on click
   observeEvent(input$mymap_shape_click, {
     event <- input$mymap_shape_click
-    print(event$id)
     
     name <- df_subset()$NAME[df_subset()$id == event$id] #get country name based on ID
-    country_sp <- df_subset() %>% mutate(AREA = 5.8 * (1-((AREA-min(AREA))/(max(AREA)-min(AREA))))) %>% 
+    country_sp <- df_subset() %>% mutate(AREA = 5.4 * (1-((AREA-min(AREA))/(max(AREA)-min(AREA))))) %>% 
       filter(NAME == name)
     
     leafletProxy("mymap") %>% 
       setView(country_sp$LON, country_sp$LAT, zoom = country_sp$AREA)
     
-    #filter data based on country and pollutant
-    rv$tb <- df_subset() %>%
-      filter(NAME == name)
+    #create deaths_plot output
+    rv$deaths <- health_effects_deaths %>%
+      filter(country == name, pollutant == "Ambient PM")
     
-    output$plot <- renderPlot({
-      rv$tb %>% ggplot() +
-        geom_bar(aes(year, concentration), stat = "identity", width = 0.5)
+    output$death_plot <- renderPlot({
+      rv$deaths %>%
+        ggplot() +
+        geom_line(aes(year, value, color = cause)) +
+        theme(legend.position = "bottom",
+              legend.title = element_blank()) +
+        scale_x_continuous(breaks = seq(1990, 2020, by = 5))
     })
     
-    output$country <- renderText({
-      paste(name, " (", input$pollutant, ")", sep = "")
+    output$death_plot_title <- renderText({
+      paste("Ambient PM Attributable Deaths by Cause (", name, ")", sep = "")
     })
     
-    if (name %in% rv$tb$country & input$pollutant %in% rv$tb$pollutant){
-      output$data <- renderUI({
-        plotOutput("plot", height = 250)
+    #create pollution_plot output
+    rv$pollution <- air_quality_annual %>% 
+      filter(country == name, pollutant == "Ambient PM2.5")
+    
+    output$pollution_plot <- renderPlot({
+      rv$pollution %>% 
+        ggplot() +
+        geom_line(aes(year, concentration), group = 1) + 
+        scale_x_continuous(breaks = c(1990, 1995, 2000, 2005, 2010, 2015)) + 
+        geom_hline(yintercept = 20, linetype = "dashed", color = "red", size = 1)
+    })
+    
+    output$pollution_plot_title <- renderText({
+      paste("Annual Ambient PM2.5 Concentration (", name, ")", sep = "")
+    })
+    
+    #create source_plot output
+    rv$sources <- sources_tidy %>% 
+      filter(country == name)
+    print(rv$sources)
+    output$sources_plot <- renderPlot({
+      rv$sources %>% 
+        ggplot() +
+        geom_bar(aes(study_year, value, fill = source), stat = "identity")
+    })
+    
+    output$sources_plot_title <- renderText({
+      paste("Sources from PM2.5 (", name, ")", sep = "")
+    })
+    
+    #output death_plot
+    if (name %in% rv$deaths$country){
+      output$dp <- renderUI({
+        plotOutput("death_plot", height = 300)
       })
       output$nodata <- NULL
     } else {
       output$nodata <- renderText({
         "No data available"
       })
-      output$data <- NULL
+      output$dp <- NULL
     }
     
+    #output pollution_plot
+    if (name %in% rv$pollution$country){
+      output$pp <- renderUI({
+        plotOutput("pollution_plot", height = 300)
+      })
+      output$nodata_pp <- NULL
+    } else {
+      output$nodata_pp <- renderText({
+        "No data available"
+      })
+      output$pp <- NULL
+    }
+    
+    #output sources_plot
+    if (name %in% rv$sources$country){
+      output$sp <- renderUI({
+        plotOutput("sources_plot", height = 300)
+      })
+      output$nodata_sp <- NULL
+    } else {
+      output$nodata_sp <- renderText({
+        "No data available"
+      })
+      output$sp <- NULL
+    }
   })
   
   #clear plot if input changes
@@ -235,7 +321,7 @@ server <- function(input, output, session) {
   #create reactive measurments dataset
   ms <- reactive({
     c <- measurements_tidy %>% 
-      filter(year == input$year, pollutant == input$pollutant)
+      filter(year == input$year, pollutant == "PM2.5")
   })
   
   #add/remove components w/ checkbox

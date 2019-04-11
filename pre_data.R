@@ -45,7 +45,7 @@ data_quality %>%
 health_effects <- read_csv("data/health_effects.csv") %>% 
   janitor::clean_names()
 health_effects_deaths <- health_effects %>% 
-  filter(measure == "Deaths")
+  filter(measure == "Deaths", age == "All ages")
 health_effects_dalys <- health_effects%>% 
   filter(measure == "DALYs")
 
@@ -97,8 +97,25 @@ sources_tidy <- sources %>%
 ### Plots
 #plotly sources
 sources_tidy %>% 
+  #filter(study_year == "2010/2015") %>% 
+  filter(country == "India") %>% 
   plot_ly(x = ~study_year, y = ~value, color = ~source, type = 'bar') %>% 
   layout(barmode = 'stack')
+
+sources_tidy %>% 
+  filter(country == "India") %>% 
+  ggplot() +
+  geom_bar(aes(study_year, value, fill = source), stat = "identity")
+
+sources_tidy %>% 
+  filter(study_year == "2010/2015") %>% 
+  plot_ly(labels = ~source, values = ~value,
+          textinfo = 'label+percent',
+          insidetextfont = list(color = '#FFFFFF'),
+          hoverinfo = 'text',
+          text = ~paste("hello"),
+          showlegend = FALSE) %>% 
+  add_pie(hole = 0.4)
 
 sources_tidy %>% 
   ggplot(aes(x = study_year, y = value)) +
@@ -132,15 +149,19 @@ air_quality_calculated %>%
 
 #health effects vs pollution level
 dalys_bangladesh <- health_effects_dalys %>% 
-  filter(country == "Bangladesh", cause == "Lower respiratory infections", age=="All ages")
+  filter(country == "Bangladesh", cause == "Lower respiratory infections", age=="All ages", pollutant == "Ambient PM")
 pm25_bangladesh <- air_quality_annual %>% 
-  filter(country == "Bangladesh", pollutant == "Ambient PM")
-bangladesh <- merge(dalys_bangladesh, pm25_bangladesh)
+  filter(country == "Bangladesh", pollutant == "Ambient PM2.5")
+bangladesh <- dalys_bangladesh %>% 
+  right_join(dalys_bangladesh, pm25_bangladesh, by = c("year" = "year"))
+bangladesh <- bangladesh %>% 
+  select(year, value.x, life_expectancy_state_of_global_air.x)
 ggplot(bangladesh, aes(x=year)) +
   geom_line(aes(y=value, colour = "Health")) +
   geom_line(aes(y=concentration, colour = "Conc")) +
   scale_y_continuous(sec.axis = sec_axis(~.*.2))
 
-ggplot(bangladesh, aes(year, concentration))+
-  geom_line() +
-  geom_point()
+health_effects_deaths %>% 
+  filter(country == "Bangladesh", pollutant == "Ambient PM") %>% 
+  ggplot() +
+  geom_line(aes(year, value, color = cause))
