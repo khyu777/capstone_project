@@ -66,7 +66,7 @@ body <- dashboardBody(
                             style = "font-weight: bold"),
                tabPanel(
                  "Health",
-                 textOutput("graph_instruction"),
+                 htmlOutput("graph_instruction"),
                  textOutput("death_plot_title"),
                  textOutput("nodata"),
                  tags$head(tags$style("#death_plot_title{font-size: 15px;
@@ -132,7 +132,7 @@ server <- function(input, output, session) {
   
   #graph instruction
   output$graph_instruction <- renderText({
-    "Click on a country to see graphs"
+    paste("<br/>", "<br/>","<br/>","<br/>","<br/>","<br/>","Click on a country to see graphs")
   })
   #subset data based on input pollutant
   df_subset <- reactive({
