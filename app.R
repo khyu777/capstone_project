@@ -213,7 +213,6 @@ server <- function(input, output, session) {
         position = "bottomleft",
         labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))
       )
-    print(df_subset_data()$concentration)
   })
   
   rv <- reactiveValues(data = NULL)
@@ -268,7 +267,7 @@ server <- function(input, output, session) {
     #create source_plot output
     rv$sources <- sources_tidy %>% 
       filter(country == name)
-    print(rv$sources)
+    
     output$sources_plot <- renderPlot({
       rv$sources %>% 
         ggplot() +
@@ -326,8 +325,6 @@ server <- function(input, output, session) {
     output$data <- NULL
     output$nodata <- NULL
     output$country <- NULL
-    leafletProxy("mymap") %>% 
-      clearMarkers()
   })
   
   #reset view button
