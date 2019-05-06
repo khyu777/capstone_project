@@ -59,7 +59,7 @@ body <- dashboardBody(
             box(width = NULL, height = "10vh",
                 status = "primary",
                 selectInput(
-                 inputId = "year", label = "Choose a year", choices = unique(sort(air_quality_annual$year))
+                 inputId = "year", label = "Choose a year", choices = unique(sort(c(air_quality_annual$year, measurements_tidy$year)))
                )),
            tabBox(width = NULL, height = "41vh",
                title = span("Annual Trends",
@@ -195,7 +195,7 @@ server <- function(input, output, session) {
                     textsize = "15px",
                     direction = "auto"),
                   options = pathOptions(pane = "polygons")
-      )  
+      )
   })
   
   #create legend separately
@@ -240,6 +240,7 @@ server <- function(input, output, session) {
         geom_line(aes(year, value, color = cause)) +
         theme(legend.position = "bottom",
               legend.title = element_blank()) +
+        labs(y = "Deaths per 100,000") +
         scale_x_continuous(breaks = seq(1990, 2020, by = 5))
     })
     
@@ -256,8 +257,8 @@ server <- function(input, output, session) {
         ggplot() +
         geom_line(aes(year, concentration), group = 1) + 
         scale_x_continuous(breaks = c(1990, 1995, 2000, 2005, 2010, 2015)) + 
-        geom_hline(yintercept = 20, linetype = "dashed", color = "red", size = 1)+
-        geom_text(aes(min(rv$pollution$year),20,label = "WHO Standard", vjust = -1, hjust = -0.05))
+        geom_hline(yintercept = 10, linetype = "dashed", color = "red", size = 1)+
+        geom_text(aes(min(rv$pollution$year),10,label = "WHO Standard (10 ug/m3)", vjust = -1, hjust = -0.05))
     })
     
     output$pollution_plot_title <- renderText({
@@ -271,7 +272,8 @@ server <- function(input, output, session) {
     output$sources_plot <- renderPlot({
       rv$sources %>% 
         ggplot() +
-        geom_bar(aes(study_year, value, fill = source), stat = "identity")
+        geom_bar(aes(study_year, value, fill = source), stat = "identity") +
+        labs(y = "Percentage")
     })
     
     output$sources_plot_title <- renderText({
@@ -351,8 +353,9 @@ server <- function(input, output, session) {
     s <- "pol_lvl" %in% checkbox
     
     #set pm25 color
-    pal <- colorBin(c("#3c9b01", "#c60000"), ms()$level, bins = c(0, 10, 15, 25, 35, 50, ceiling(max(ms()$level))))
-    
+    #pal <- colorBin(c("#3c9b01", "#c60000"), ms()$level, bins = c(0, 10, 15, 25, 35, 50, ceiling(max(ms()$level))))
+    pal <- colorBin("YlGnBu", ms()$level, bins = c(0, 10, 15, 25, 35, 50, ceiling(max(ms()$level))))
+   
     #add monitor markers
     addmonitor <- function(){
       proxy %>%

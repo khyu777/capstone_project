@@ -30,7 +30,10 @@ content <- rawToChar(locations$content)
 data <- fromJSON(content)
 monitors <- data$results
 monitors_tidy <- monitors %>%
-  select(country, city, location, count, firstUpdated, lastUpdated) %>% 
+  select(country, city, location, sourceNames, count, firstUpdated, lastUpdated) %>% 
+  separate(firstUpdated, c("firstUpdated", "extra_1"), sep = "T", remove = TRUE) %>% 
+  separate(lastUpdated, c("lastUpdated", "extra_2"), sep = "T", remove = TRUE) %>% 
+  select(-c(extra_1, extra_2)) %>% 
   arrange(country)
 num_monitors_city <- monitors_tidy %>% 
   group_by(country, city) %>% 
@@ -38,5 +41,8 @@ num_monitors_city <- monitors_tidy %>%
 num_monitors_country <- num_monitors_city %>% 
   group_by(country) %>% 
   summarize(n = sum(n))
+
+monitors_tidy$sourceNames <- sapply(monitors_tidy$sourceNames, paste0, sep = ", ", collapse="")
+monitors_tidy$sourceNames <- substr(monitors_tidy$sourceNames, 1, nchar(monitors_tidy$sourceNames)-2)
 
 write_csv(monitors_tidy, path = "data/openaq/monitors.csv")
