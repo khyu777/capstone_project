@@ -59,7 +59,7 @@ body <- dashboardBody(
             box(width = NULL, height = "10vh",
                 status = "primary",
                 selectInput(
-                 inputId = "year", label = "Choose a year", choices = unique(sort(c(air_quality_annual$year, measurements_tidy$year)))
+                 inputId = "year", label = "Choose a year", choices = unique(sort(air_quality_annual$year))
                )),
            tabBox(width = NULL, height = "41vh",
                title = span("Annual Trends",
@@ -83,7 +83,8 @@ body <- dashboardBody(
                  tags$head(tags$style("#pollution_plot_title{font-size: 15px;
                                       font-weight: bold;
                                       text-align: center}"),
-                           tags$style("#nodata_pp{text-align:center}")),
+                           tags$style("#nodata_pp{text-align:center}"),
+                           tags$style("#graph_instruction{text-align:center}")),
                  uiOutput("pp")
                ),
                tabPanel(
@@ -93,7 +94,8 @@ body <- dashboardBody(
                  tags$head(tags$style("#sources_plot_title{font-size: 15px;
                                       font-weight: bold;
                                       text-align: center}"),
-                           tags$style("#nodata_sp{text-align:center}")),
+                           tags$style("#nodata_sp{text-align:center}"),
+                           tags$style("#graph_instruction{text-align:center}")),
                  uiOutput("sp")
                )),
           box(width = NULL,  height = "20vh", status = "primary",

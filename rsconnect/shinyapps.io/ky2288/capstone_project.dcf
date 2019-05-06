@@ -5,6 +5,6 @@ account: ky2288
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 734602
-bundleId: 2002286
+bundleId: 2065183
 url: https://ky2288.shinyapps.io/capstone_project/
-when: 1554961365.25378
+when: 1557183266.64564
