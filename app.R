@@ -211,7 +211,7 @@ server <- function(input, output, session) {
                             reverse = TRUE),
         values = c(floor(min(df_subset_data()$concentration)), ceiling(max(df_subset_data()$concentration))),
         opacity = 0.9,
-        title = paste("<center> Annual </br>", input$pollutant, "</center>"),
+        title = paste("<center> Annual </br>", input$pollutant, "</br> (", unique(df_subset_data()$unit), ") </center>", sep = ""),
         position = "bottomleft",
         labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))
       )
@@ -223,6 +223,7 @@ server <- function(input, output, session) {
   observeEvent(input$mymap_shape_click, {
     event <- input$mymap_shape_click
     
+    print(df_subset())
     output$graph_instruction <- NULL
     
     name <- df_subset()$NAME[df_subset()$id == event$id] #get country name based on ID

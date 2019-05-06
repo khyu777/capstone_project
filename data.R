@@ -15,6 +15,7 @@ air_quality <- read_csv("data/air_quality_estimates.csv") %>%
 air_quality_annual <- air_quality %>% 
   filter(resolution == "Annual") %>% 
   select(-city_region, -month)
+air_quality_annual$unit[air_quality_annual$unit == "??g/m3"] <- "ug/m3"
 air_quality_monthly <- air_quality %>% 
   filter(resolution == "Monthly")
 air_quality_calculated <- air_quality_monthly %>%
@@ -46,7 +47,7 @@ world_spdf <- subset(world_spdf, REGION == 142)
 world_spdf@data <- world_spdf@data %>% 
   mutate(id = 1:nrow(world_spdf@data), NAME = recode(NAME, Burma = "Myanmar", "Viet Nam" = "Vietnam"))
 tmp <- left_join(world_spdf@data, air_quality_annual, by = c("NAME" = "country")) %>%
-  select(NAME, AREA, LON:concentration)
+  select(NAME, AREA, LON:concentration, unit)
 
 #ctrprof <- left_join(world_spdf@data, ctrprof, by = c("NAME" = "country"))
 #ctrprof$NAME[ctrprof$NAME == "Viet Nam"] <- "Vietnam"
