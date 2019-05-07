@@ -274,13 +274,18 @@ server <- function(input, output, session) {
     
     output$sources_plot <- renderPlot({
       rv$sources %>% 
+        group_by(source) %>% 
+        summarize(avg = mean(value, na.rm = TRUE)) %>% 
+        arrange(desc(avg)) %>% 
+        top_n(3) %>% 
         ggplot() +
-        geom_bar(aes(study_year, value, fill = source), stat = "identity") +
-        labs(y = "Percentage")
+        geom_bar(aes(reorder(source, -avg, sum), avg), stat = "identity") +
+        labs(y = "Average Percentage") + 
+        theme(axis.title.x = element_blank())
     })
     
     output$sources_plot_title <- renderText({
-      paste("Sources from PM2.5 (", name, ")", sep = "")
+      paste("Top 3 Sources of PM2.5 Pollution (", name, ")", sep = "")
     })
     
     #output death_plot

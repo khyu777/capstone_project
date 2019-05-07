@@ -61,16 +61,16 @@ sources <- read_csv("data/sources.csv") %>%
   janitor::clean_names() %>% 
   filter(!is.na(country), !is.na(study_year)) %>% 
   rename_at(.vars = vars(ends_with("_percent")), .funs = funs(gsub("_percent", "", .))) %>% 
-  select(site_location:other_unspecified_human_origin)
+  select(site_location:other)
 
 #tidy sources data
 sources_tidy <- sources %>%
-  select(country, site_typology, season, methodology, reference_author, study_year, pollutant, sea_salt:other_unspecified_human_origin) %>% 
-  gather(source, value, sea_salt:other_unspecified_human_origin) %>% 
+  select(country, site_typology, season, methodology, reference_author, study_year, pollutant, sea_salt:residential_fuel_combustion) %>% 
+  gather(source, value, sea_salt:residential_fuel_combustion) %>% 
   # filter(study_year_end != 2002)
   arrange(study_year) %>% 
   mutate(study_year = as.factor(study_year)) %>% 
-  filter(study_year != "2001/2002", season == "year", site_typology == "urban", pollutant == "PM2.5")
+  filter(season == "year", pollutant == "PM2.5")
 
 #load monitor data
 measurements <- read_csv("data/WHO_AirQuality_Database_2018.csv") %>% 
