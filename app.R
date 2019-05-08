@@ -18,7 +18,10 @@ source("data.R", local = TRUE)
 
 #create dashboard header
 header <- dashboardHeader(
-  title = "South and Southeast Asia Air Pollution", titleWidth = "100vw"
+  tags$li(class = "dropdown", tags$a(href = "https://github.com/khyu777/capstone_project", class = "my_class", "Github", target="_blank")), 
+  tags$li(class = "dropdown", tags$a(href = "https://docs.google.com/spreadsheets/d/1GtNEIDimJ1mGutMAVG9udTnHNXJWuN3oQGJDx2Nnmk0/edit?usp=drive_web&ouid=117125846453068329031", class = "my_class", "Database", target="_blank")),
+  title = "Air Pollution in South and Southeast Asia",
+  titleWidth = "88.5vw"
 )
 
 tweaks <- 
@@ -61,7 +64,7 @@ body <- dashboardBody(
                 selectInput(
                  inputId = "year", label = "Choose a year", choices = unique(sort(air_quality_annual$year))
                )),
-           tabBox(width = NULL, height = "41vh",
+           tabBox(width = NULL, height = "46vh",
                title = span("Annual Trends",
                             style = "font-weight: bold"),
                tabPanel(
@@ -98,7 +101,7 @@ body <- dashboardBody(
                            tags$style("#graph_instruction{text-align:center}")),
                  uiOutput("sp")
                )),
-          box(width = NULL,  height = "20vh", status = "primary",
+          box(width = NULL,  height = "15vh", status = "primary",
               column(
                 12,
                 div("Information", style="font-size:150%; font-weight: bold"),
@@ -110,12 +113,7 @@ body <- dashboardBody(
                                                            "Pollutant Level" = "pol_lvl")
                          )
                 ),
-                div("NOTE: Monitoring station data is only avilable between 2009-2016", style = "padding:7px"), 
-                div(style = "border-top: 1px solid black; padding:6px"),
-                div(actionButton(inputId='ab1', label="Explore Database", 
-                             onclick ="window.open('https://docs.google.com/spreadsheets/d/1GtNEIDimJ1mGutMAVG9udTnHNXJWuN3oQGJDx2Nnmk0/edit?zx=bn3fh2b3rczn#gid=973186796', '_blank')"),
-                    align = "center"
-                )
+                div("NOTE: Monitoring station data is only avilable between 2008-2016", style = "padding:7px")
               )
           )
     )
@@ -223,7 +221,6 @@ server <- function(input, output, session) {
   observeEvent(input$mymap_shape_click, {
     event <- input$mymap_shape_click
     
-    print(df_subset())
     output$graph_instruction <- NULL
     
     name <- df_subset()$NAME[df_subset()$id == event$id] #get country name based on ID
